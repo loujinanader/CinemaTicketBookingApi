@@ -22,5 +22,7 @@ namespace CinemaTicketBookingApi.Controllers
         //Delete
         //[HttpDelete]
 
+
+        //[HttpGet] //All Booking and booking details
     }
 }

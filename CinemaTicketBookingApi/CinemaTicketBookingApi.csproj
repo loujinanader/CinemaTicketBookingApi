@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Exceptions\" />
     <Folder Include="Middleware\" />
-    <Folder Include="Repository\Interfaces\" />
   </ItemGroup>
 
 </Project>
