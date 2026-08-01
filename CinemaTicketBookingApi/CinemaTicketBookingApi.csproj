@@ -14,8 +14,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Middleware\" />
     <Folder Include="Repository\Interfaces\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
