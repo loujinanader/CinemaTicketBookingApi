@@ -3,9 +3,9 @@ using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Data
 {
-    public class CinemaContext : DbContext
+    public class Movies_db : DbContext
     {
-        public CinemaContext(DbContextOptions<CinemaContext> options) : base(options)
+        public Movies_db(DbContextOptions<Movies_db> options) : base(options)
         { }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Movie> Movies

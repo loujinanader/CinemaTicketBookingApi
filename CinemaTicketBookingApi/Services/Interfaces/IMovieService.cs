@@ -1,6 +1,6 @@
 ﻿namespace CinemaTicketBookingApi.Services.Interfaces
 {
-    public class IMovieService
+    public interface IMovieService
     {
     }
 }

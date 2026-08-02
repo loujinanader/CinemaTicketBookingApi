@@ -1,6 +1,7 @@
 ﻿using CinemaTicketBookingApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using CinemaTicketBookingApi.DTOs;
+using CinemaTicketBookingApi.Repository.BookingRepo;
 namespace CinemaTicketBookingApi.Controllers
 {
     //[Route("api/[controller]")]
@@ -16,13 +17,23 @@ namespace CinemaTicketBookingApi.Controllers
 
 
         //create
-        //[HttpPost]
-
+        [HttpPost]
+        public IActionResult CreateBooking( CreateBookingDTO booking)
+        {
+            //if (bookingDto == null)
+            //{
+            //    return BadRequest("Booking data is null.");
+            //}
+            var createdBooking = _bookingService.CreateBooking(booking);
+            return Ok(createdBooking);
+        }
 
         //Delete
         //[HttpDelete]
 
 
-        //[HttpGet] //All Booking and booking details
+        //[HttpGet] //All Booking
+        
+        //booking details
     }
 }

@@ -2,14 +2,14 @@
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.DTOs;
 
-namespace CinemaTicketBookingApi.Repository
+namespace CinemaTicketBookingApi.Repository.MovieRepo
 {
     public interface IMovieRepository
     {
-        public IEnumerable <Movie> GetAllMovies();
+        public IEnumerable <Movie> GetAllMovies(int pageId);
         public Movie GetMovieById(int id);
-        public Movie CreateMovie(CreateMovieDTO movie);
-        public Movie UpdateMovie(int id, UpdateMovieDTO movie);
+        public Movie CreateMovie(Movie movie);
+        public Movie UpdateMovie(Movie movie);
         public void DeleteMovie(int id);
     }
 }

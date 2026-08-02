@@ -12,6 +12,8 @@ namespace CinemaTicketBookingApi.Controllers
         {
             _movieService = movieService;
         }
+
+        // todo 
         //Read
         //[HttpGet]
 
