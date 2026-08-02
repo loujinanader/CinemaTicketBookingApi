@@ -1,7 +1,7 @@
 ﻿using CinemaTicketBookingApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using CinemaTicketBookingApi.DTOs;
 using CinemaTicketBookingApi.Repository.BookingRepo;
+using CinemaTicketBookingApi.DTOs.Booking;
 namespace CinemaTicketBookingApi.Controllers
 {
     [Route("api/[controller]")]

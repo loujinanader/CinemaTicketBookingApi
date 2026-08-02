@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketBookingApi.DTOs
+﻿namespace CinemaTicketBookingApi.DTOs.Movie
 {
     public class UpdateMovieDTO
     {

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CinemaTicketBookingApi.Repository;
+﻿using CinemaTicketBookingApi.DTOs;
+using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Models;
+using CinemaTicketBookingApi.Repository;
 using CinemaTicketBookingApi.Services.Movies;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketBookingApi.Controllers
 {
@@ -28,10 +30,10 @@ namespace CinemaTicketBookingApi.Controllers
 
         //create
         [HttpPost]
-        public IActionResult CreateMovie(Movie movie)
+        public IActionResult CreateMovie(CreateMovieDTO dTO)
         {
-            var createdMovie = _movieService.CreateMovie(movie);
-            return Ok(createdMovie);
+            var createdMovie = _movieService.CreateMovie(dTO);
+            return Created("", createdMovie);
         }
 
 

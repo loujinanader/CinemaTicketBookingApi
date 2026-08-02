@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketBookingApi.DTOs
+﻿namespace CinemaTicketBookingApi.DTOs.Booking
 {
     public class CreateBookingDTO
     {

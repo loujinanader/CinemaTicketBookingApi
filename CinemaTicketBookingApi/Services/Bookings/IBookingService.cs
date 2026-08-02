@@ -1,6 +1,6 @@
 ﻿
 using CinemaTicketBookingApi.Models;
-using CinemaTicketBookingApi.DTOs;
+using CinemaTicketBookingApi.DTOs.Booking;
 
 namespace CinemaTicketBookingApi.Services.Interfaces
 {

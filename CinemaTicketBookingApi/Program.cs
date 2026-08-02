@@ -2,7 +2,7 @@ using CinemaTicketBookingApi.Data;
 using CinemaTicketBookingApi.Repository.BookingRepo;
 using CinemaTicketBookingApi.Repository.MovieRepo;
 using CinemaTicketBookingApi.Services.Movies;
-using CinemaTicketBookingApi.Services.Bookings;
+//using CinemaTicketBookingApi.Services.Bookings;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-builder.Services.AddScoped<IBookingService, BookingService>();
+//builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();

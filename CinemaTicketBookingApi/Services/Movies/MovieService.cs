@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingApi.Exceptions;
+﻿using CinemaTicketBookingApi.DTOs.Movie;
+using CinemaTicketBookingApi.Exceptions;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;
@@ -14,13 +15,38 @@ namespace CinemaTicketBookingApi.Services.Movies
             _repository = repository;
         }
 
-        public Movie CreateMovie(Movie movie)
+        public MovieResponseDTO CreateMovie(CreateMovieDTO dTO)
         {
-            if (movie == null) 
-                throw new ArgumentNullException(nameof(movie));
+            if (dTO == null) 
+                throw new ArgumentNullException(nameof(dTO));
 
 
-            return _repository.CreateMovie(movie);
+            Movie movieToCreate = new Movie
+            {
+                Title = dTO.Title,
+                ReleaseYear = dTO.ReleaseYear,
+                AvailableInCinema = true,
+                AvailableSeats = dTO.AvailableSeats,
+                Duration = dTO.Duration,
+                Genre = dTO.Genre
+            };
+
+
+            Movie createdMoive =  _repository.CreateMovie(movieToCreate);
+            //return createdMoive;
+
+            MovieResponseDTO movieResponse = new MovieResponseDTO {
+                ID = createdMoive.Id,
+                Title = createdMoive.Title,
+                ReleaseYear = createdMoive.ReleaseYear,
+                AvailableSeats = createdMoive.AvailableSeats,
+                Duration = createdMoive.Duration,
+                Genre = createdMoive.Genre
+
+            };
+            return movieResponse;
+
+
         }
         public void DeleteMovie(int movieId)
         {

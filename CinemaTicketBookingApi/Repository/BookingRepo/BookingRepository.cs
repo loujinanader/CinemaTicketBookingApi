@@ -1,5 +1,5 @@
 ﻿using CinemaTicketBookingApi.Data;
-using CinemaTicketBookingApi.DTOs;
+using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Repository.BookingRepo
