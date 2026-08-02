@@ -5,7 +5,7 @@ namespace CinemaTicketBookingApi.Services.Movies
     public interface IMovieService
     {
        public Movie CreateMovie(Movie movie);
-       public void DeleteMovie(Movie movie);
+       public void DeleteMovie(int movieId);
        public Movie GetMovieById(int id);
        public Movie UpdateMovie(Movie movie);
        public bool MovieTitleExists(string title);

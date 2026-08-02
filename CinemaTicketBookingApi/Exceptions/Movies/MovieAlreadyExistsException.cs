@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketBookingApi.Exceptions
+﻿namespace CinemaTicketBookingApi.Exceptions.Movies
 {
     public class MovieAlreadyExistsException : Exception
     { public MovieAlreadyExistsException(string message)

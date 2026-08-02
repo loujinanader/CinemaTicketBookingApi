@@ -37,9 +37,9 @@ namespace CinemaTicketBookingApi.Controllers
 
         //Delete
         [HttpDelete]
-        public IActionResult DeleteMovie(Movie movie)
+        public IActionResult DeleteMovie(int movieId)
         {
-            _movieService.DeleteMovie(movie);
+            _movieService.DeleteMovie(movieId);
             return Ok();
         }
 
@@ -51,8 +51,6 @@ namespace CinemaTicketBookingApi.Controllers
         {
             var updatedMovie = _movieService.UpdateMovie(movie);
             return Ok(updatedMovie);
-
-
 
         }
     }

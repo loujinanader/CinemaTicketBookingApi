@@ -1,11 +1,12 @@
-﻿using CinemaTicketBookingApi.Models;
+﻿using CinemaTicketBookingApi.Exceptions;
+using CinemaTicketBookingApi.Exceptions.Movies;
+using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;
-using CinemaTicketBookingApi.Exceptions;
 
 
 namespace CinemaTicketBookingApi.Services.Movies
 {
-    public class MovieService : IMovieService
+    public partial class MovieService : IMovieService
     {
         private readonly IMovieRepository _repository;
         public MovieService(IMovieRepository repository)
@@ -15,19 +16,22 @@ namespace CinemaTicketBookingApi.Services.Movies
 
         public Movie CreateMovie(Movie movie)
         {
-            if (movie == null) throw new ArgumentNullException(nameof(movie));
+            if (movie == null) 
+                throw new ArgumentNullException(nameof(movie));
 
 
             return _repository.CreateMovie(movie);
         }
-        public void DeleteMovie(Movie movie)
-        {       //Book if the movie still available in the cinema. 
-            if (movie == null) throw new ArgumentNullException(nameof(movie));
-            _repository.DeleteMovie(movie);
+        public void DeleteMovie(int movieId)
+        {
+            Movie movieToBeDeleted = _repository.GetMovieById(movieId);
+            ValidateMovieBeforeDelete(movieToBeDeleted, movieId);
 
+            _repository.DeleteMovie(movieToBeDeleted);
         }
 
-      
+       
+
         public Movie GetMovieById(int id)
         {
             var movie = _repository.GetMovieById(id);
