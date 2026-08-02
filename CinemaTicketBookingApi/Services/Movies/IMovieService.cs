@@ -11,6 +11,5 @@ namespace CinemaTicketBookingApi.Services.Movies
        public Movie UpdateMovie(Movie movie);
        public bool MovieTitleExists(string title);
        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
-        //object CreateMovie(CreateMovieDTO dTO);
     }
 }

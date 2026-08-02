@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingApi.Exceptions.Movies;
+﻿using CinemaTicketBookingApi.DTOs.Movie;
+using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Services.Movies
@@ -9,6 +10,12 @@ namespace CinemaTicketBookingApi.Services.Movies
         {
             if (movieToBeDeleted == null)
                 throw new MovieNotFoundException(movieId);
+        }
+        private void ValidateBeforeCreate(CreateMovieDTO movie)
+        {
+            if (movie == null)
+                throw new ArgumentNullException(nameof(movie));
+
         }
     }
 }

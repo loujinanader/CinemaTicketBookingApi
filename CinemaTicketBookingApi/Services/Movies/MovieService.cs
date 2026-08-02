@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingApi.DTOs.Movie;
+﻿using CinemaTicketBookingApi.Data.Mappers;
+using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Exceptions;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
@@ -10,44 +11,27 @@ namespace CinemaTicketBookingApi.Services.Movies
     public partial class MovieService : IMovieService
     {
         private readonly IMovieRepository _repository;
-        public MovieService(IMovieRepository repository)
+        private readonly IMapper _mapper;
+        public MovieService(IMovieRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
+            
+       
 
         public MovieResponseDTO CreateMovie(CreateMovieDTO dTO)
         {
-            if (dTO == null) 
-                throw new ArgumentNullException(nameof(dTO));
-
-
-            Movie movieToCreate = new Movie
-            {
-                Title = dTO.Title,
-                ReleaseYear = dTO.ReleaseYear,
-                AvailableInCinema = true,
-                AvailableSeats = dTO.AvailableSeats,
-                Duration = dTO.Duration,
-                Genre = dTO.Genre
-            };
-
-
-            Movie createdMoive =  _repository.CreateMovie(movieToCreate);
-            //return createdMoive;
-
-            MovieResponseDTO movieResponse = new MovieResponseDTO {
-                ID = createdMoive.Id,
-                Title = createdMoive.Title,
-                ReleaseYear = createdMoive.ReleaseYear,
-                AvailableSeats = createdMoive.AvailableSeats,
-                Duration = createdMoive.Duration,
-                Genre = createdMoive.Genre
-
-            };
-            return movieResponse;
-
+            ValidateBeforeCreate(dTO);
+            Movie movieToCreate = _mapper.MapToMovie(dTO);
+            Movie createdMoive = _repository.CreateMovie(movieToCreate);
+            MovieResponseDTO responseDTO = _mapper.MapToMovieResponseDTO(createdMoive);
+            return responseDTO;
 
         }
+
+       
+
         public void DeleteMovie(int movieId)
         {
             Movie movieToBeDeleted = _repository.GetMovieById(movieId);
