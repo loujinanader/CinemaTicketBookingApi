@@ -1,7 +1,7 @@
 ﻿using CinemaTicketBookingApi.DTOs;
 using CinemaTicketBookingApi.Models;
 
-namespace CinemaTicketBookingApi.Repository.Interfaces
+namespace CinemaTicketBookingApi.Repository.BookingRepo
 {
     public interface IBookingRepository
     {

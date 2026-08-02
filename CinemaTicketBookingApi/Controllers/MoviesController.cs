@@ -1,5 +1,7 @@
-﻿using CinemaTicketBookingApi.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using CinemaTicketBookingApi.Repository;
+using CinemaTicketBookingApi.Models;
+using CinemaTicketBookingApi.Services.Movies;
 
 namespace CinemaTicketBookingApi.Controllers
 {
@@ -13,25 +15,45 @@ namespace CinemaTicketBookingApi.Controllers
             _movieService = movieService;
         }
 
-        // todo 
+
         //Read
-        //[HttpGet]
+        [HttpGet]
+        public IActionResult GetMovieById(int id)
+        {
+            var movie = _movieService.GetMovieByIdAsync(id);
+            return Ok(movie);
+        }
 
 
 
         //create
-        //[HttpPost]
+        [HttpPost]
+        public IActionResult CreateMovie(Movie movie)
+        {
+            var createdMovie = _movieService.CreateMovieAsync(movie);
+            return Ok(createdMovie);
+        }
 
 
         //Delete
-        //[HttpDelete]
+        [HttpDelete]
+        public IActionResult DeleteMovie(int id)
+        {
+            _movieService.DeleteMovieAsync(id);
+            return Ok();
+        }
 
 
         //Update
-        //[HttpPut]
+        [HttpPut]
+
+        public IActionResult UpdateMovie(Movie movie)
+        {
+            var updatedMovie = _movieService.UpdateMovieAsync(movie);
+            return Ok(updatedMovie);
 
 
 
-
+        }
     }
 }

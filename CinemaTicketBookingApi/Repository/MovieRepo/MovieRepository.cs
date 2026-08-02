@@ -1,7 +1,6 @@
 ﻿using CinemaTicketBookingApi.Data;
 using CinemaTicketBookingApi.Models;
-using CinemaTicketBookingApi.Repository.MovieRepo;
-namespace CinemaTicketBookingApi.Repository.Classes
+namespace CinemaTicketBookingApi.Repository.MovieRepo
 {
     public class MovieRepository : IMovieRepository
     {
@@ -10,9 +9,12 @@ namespace CinemaTicketBookingApi.Repository.Classes
         {
             _Db = Db;
         }
-        public IEnumerable<Movie> GetAllMovies(int pageId)
+        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
         {
-            return _Db.Movies.Take(2).AsQueryable();
+            return _Db.Movies
+                      .Skip((pageNumber - 1) * pageSize)
+                      .Take(pageSize)
+                      .ToList();
         }
 
         public Movie GetMovieById(int id) 
@@ -32,12 +34,10 @@ namespace CinemaTicketBookingApi.Repository.Classes
             return movie;
         }
 
-        public void DeleteMovie(int id) {
-            var dmovie = _Db.Movies.FirstOrDefault(x => x.Id == id);
-            _Db.Movies.Remove(dmovie);
+        public void DeleteMovie(Movie movie) {
+            _Db.Movies.Remove(movie);
             _Db.SaveChanges();
         }
-
 
     }
 }
