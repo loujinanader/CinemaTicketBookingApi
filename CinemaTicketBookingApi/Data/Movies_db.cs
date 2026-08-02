@@ -8,10 +8,7 @@ namespace CinemaTicketBookingApi.Data
         public Movies_db(DbContextOptions<Movies_db> options) : base(options)
         { }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Movie> Movies
-        {
-            get; set;
-        }
+        public DbSet<Movie> Movies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
