@@ -28,6 +28,8 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
             _db.SaveChanges();
             return booking;
         }
-        public  void CancelBooking(CancelBookingDTO Booking) { }
+        public  void CancelBooking(CancelBookingDTO Booking) {
+          _db.Bookings.Remove(_db.Bookings.FirstOrDefault(b => b.Id == Booking.Id));
+        }
     }
 }

@@ -2,5 +2,6 @@
 {
     public class CancelBookingDTO
     {
+        public int Id { get; set; }
     }
 }

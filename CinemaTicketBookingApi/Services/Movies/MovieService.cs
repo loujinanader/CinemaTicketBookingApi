@@ -21,7 +21,7 @@ namespace CinemaTicketBookingApi.Services.Movies
             return _repository.CreateMovie(movie);
         }
         public void DeleteMovie(Movie movie)
-        {
+        {       //Book if the movie still available in the cinema. 
             if (movie == null) throw new ArgumentNullException(nameof(movie));
             _repository.DeleteMovie(movie);
 
@@ -47,7 +47,8 @@ namespace CinemaTicketBookingApi.Services.Movies
         }
 
         public Movie UpdateMovie(Movie movie)
-        {
+        {//Book if the movie still available in the cinema. 
+
             if (movie == null) throw new ArgumentNullException(nameof(movie));
             var existingMovie = _repository.GetMovieById(movie.Id);
             if (existingMovie == null) throw new Exception($"Movie with ID {movie.Id} not found.");
@@ -58,6 +59,6 @@ namespace CinemaTicketBookingApi.Services.Movies
             return _repository.GetAllMovies(pageNumber, pageSize);
         }
 
-       // Available seats can never become negative.
+       
     }
 }
