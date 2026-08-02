@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingApi.DTOs;
+﻿using CinemaTicketBookingApi.Data;
+using CinemaTicketBookingApi.DTOs;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.Interfaces;
 
@@ -6,10 +7,17 @@ namespace CinemaTicketBookingApi.Repository.Classes
 {
     public class BookingRepository : IBookingRepository
     {
-        private readonly 
+        private readonly CinemaContext _db;
+        public BookingRepository(CinemaContext context)
+        {
+            _db = context;
+        }
         public Booking CreateBooking(CreateBookingDTO Booking)
         {
-            return 
+            _db.Bookings.Add(Booking);
+
+            _db.SaveChanges();
+            return Booking;
         }
         public  void CancelBooking(CancelBookingDTO Booking) { }
     }

@@ -8,5 +8,11 @@
         public string CustomerEmail {  get; set; }
         public DateTime BookingDate { get; set; }
         public int NumberOfTickets { get; set; }
+
+
+        // Booking belongs to one Movie
+        public Movie Movie { get; set; }
+
+
     }
 }

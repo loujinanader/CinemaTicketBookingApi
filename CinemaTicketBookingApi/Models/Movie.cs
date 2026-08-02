@@ -11,6 +11,7 @@
         public bool AvailableInCinema { get; set; }
 
 
-
+        // One Movie has many Bookings
+        public ICollection<Booking> Bookings { get; set; }
     }
 }
