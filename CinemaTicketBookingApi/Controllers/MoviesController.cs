@@ -20,7 +20,7 @@ namespace CinemaTicketBookingApi.Controllers
         [HttpGet]
         public IActionResult GetMovieById(int id)
         {
-            var movie = _movieService.GetMovieByIdAsync(id);
+            var movie = _movieService.GetMovieById(id);
             return Ok(movie);
         }
 
@@ -30,16 +30,16 @@ namespace CinemaTicketBookingApi.Controllers
         [HttpPost]
         public IActionResult CreateMovie(Movie movie)
         {
-            var createdMovie = _movieService.CreateMovieAsync(movie);
+            var createdMovie = _movieService.CreateMovie(movie);
             return Ok(createdMovie);
         }
 
 
         //Delete
         [HttpDelete]
-        public IActionResult DeleteMovie(int id)
+        public IActionResult DeleteMovie(Movie movie)
         {
-            _movieService.DeleteMovieAsync(id);
+            _movieService.DeleteMovie(movie);
             return Ok();
         }
 
@@ -49,7 +49,7 @@ namespace CinemaTicketBookingApi.Controllers
 
         public IActionResult UpdateMovie(Movie movie)
         {
-            var updatedMovie = _movieService.UpdateMovieAsync(movie);
+            var updatedMovie = _movieService.UpdateMovie(movie);
             return Ok(updatedMovie);
 
 

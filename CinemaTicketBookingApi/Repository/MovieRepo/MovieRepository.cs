@@ -38,6 +38,13 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
             _Db.Movies.Remove(movie);
             _Db.SaveChanges();
         }
-
+        public bool MovieTitleExists(string title)
+        {
+            return _Db.Movies.Any(m => m.Title == title);
+        }
+        public Movie GetMovieByTitle(string title)
+        {
+            return _Db.Movies.FirstOrDefault(m => m.Title == title);
+        }
     }
 }

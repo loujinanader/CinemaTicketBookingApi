@@ -1,12 +1,14 @@
 ﻿using CinemaTicketBookingApi.Models;
-
+using CinemaTicketBookingApi.Exceptions;
 namespace CinemaTicketBookingApi.Services.Movies
 {
     public interface IMovieService
     {
-        object CreateMovieAsync(Movie movie);
-        void DeleteMovieAsync(int id);
-        Task GetMovieByIdAsync(int id);
-        object UpdateMovieAsync(Movie movie);
+       public Movie CreateMovie(Movie movie);
+       public void DeleteMovie(Movie movie);
+       public Movie GetMovieById(int id);
+       public Movie UpdateMovie(Movie movie);
+       public bool MovieTitleExists(string title);
+       public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
     }
 }
