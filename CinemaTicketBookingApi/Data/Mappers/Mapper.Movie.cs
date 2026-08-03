@@ -43,6 +43,14 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 Genre = dTO.Genre
             };
         }
-       
+        public void MapToExistingMovie(UpdateMovieDTO dto, Movie movie)
+        {
+            movie.Title = dto.Title;
+            movie.Genre = dto.Genre;
+            movie.Duration = dto.Duration;
+            movie.ReleaseYear = dto.ReleaseYear;
+            movie.AvailableSeats = dto.AvailableSeats;
+            movie.AvailableInCinema = dto.AvailableInCinema;
+        }
     }
 }

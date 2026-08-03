@@ -18,9 +18,6 @@ namespace CinemaTicketBookingApi.Services.Movies
             _repository = repository;
             _mapper = mapper;
         }
-            
-       
-
         public MovieResponseDTO CreateMovie(CreateMovieDTO dTO)
         {
             ValidateBeforeCreate(dTO);
@@ -30,25 +27,14 @@ namespace CinemaTicketBookingApi.Services.Movies
             return responseDTO;
 
         }
-
         public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO)
         {//Book if the movie still available in the cinema. 
-
             ValidateMovieBeforeUpdate(dTO);
             var existingMovie = _repository.GetMovieById(dTO.Id);
             if (existingMovie == null) throw new MovieNotFoundException(dTO.Id);
-
-            Movie movieToUpdate = _mapper.MapToMovie(dTO);
-            existingMovie.Title = dTO.Title;
-            existingMovie.Genre = dTO.Genre;
-            existingMovie.Duration = dTO.Duration;
-            existingMovie.ReleaseYear = dTO.ReleaseYear;
-            existingMovie.AvailableSeats = dTO.AvailableSeats;
-            existingMovie.AvailableInCinema = dTO.AvailableInCinema;
+           _mapper.MapToExistingMovie(dTO, existingMovie);
             Movie updatedMovie = _repository.UpdateMovie(existingMovie);
-
-            MovieResponseDTO responseDTO = _mapper.MapToMovieResponseDTO(updatedMovie);
-            return responseDTO;
+            return _mapper.MapToMovieResponseDTO(updatedMovie);
         }
 
         public void DeleteMovie(int movieId)
@@ -58,8 +44,6 @@ namespace CinemaTicketBookingApi.Services.Movies
 
             _repository.DeleteMovie(movieToBeDeleted);
         }
-
-       
 
         public Movie GetMovieById(int id)
         {
@@ -78,13 +62,7 @@ namespace CinemaTicketBookingApi.Services.Movies
             }
             return true;
         }
-
-    
         public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
-        {
-            return _repository.GetAllMovies(pageNumber, pageSize);
-        }
-
-       
+            => _repository.GetAllMovies(pageNumber, pageSize);
     }
 }
