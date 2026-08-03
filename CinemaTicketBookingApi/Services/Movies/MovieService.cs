@@ -37,14 +37,12 @@ namespace CinemaTicketBookingApi.Services.Movies
             Movie updatedMovie = _repository.UpdateMovie(existingMovie);
             return _mapper.MapToMovieResponseDTO(updatedMovie);
         }
-
         public void DeleteMovie(int movieId)
         {
             Movie movieToBeDeleted = _repository.GetMovieById(movieId);
             ValidateMovieBeforeDelete(movieToBeDeleted, movieId);
             _repository.DeleteMovie(movieToBeDeleted);
         }
-
         public Movie GetMovieById(int id)
         {
             var movie = _repository.GetMovieById(id);
@@ -52,16 +50,13 @@ namespace CinemaTicketBookingApi.Services.Movies
             throw new MovieNotFoundException(id);
             return movie;
         }
+        public bool MovieTitleExists(string title)//Duplicate movie titles are not allowed. 
 
-        //Duplicate movie titles are not allowed. 
-        public bool MovieTitleExists(string title)
         { var movie = _repository.GetMovieByTitle(title);
 
             if (_repository.MovieTitleExists(movie.Title))
-            {
-                throw new MovieAlreadyExistsException("A movie with this title already exists.");
-            }
-            return true;
+               throw new MovieAlreadyExistsException("A movie with this title already exists.");
+               return true;
         }
         public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
             => _repository.GetAllMovies(pageNumber, pageSize);

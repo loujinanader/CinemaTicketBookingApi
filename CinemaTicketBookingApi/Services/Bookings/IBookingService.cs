@@ -2,13 +2,12 @@
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.DTOs.Booking;
 
-namespace CinemaTicketBookingApi.Services.Interfaces
+namespace CinemaTicketBookingApi.Services.Bookings
 {
     public interface IBookingService
     {
        public void CancelBooking(int id);
       public Booking CreateBooking(CreateBookingDTO booking);
-      //public IEnumerable<BookingDto> GetAllBookings(int pageId);
-      // public BookingDto GetBookingdetails(int id);
+  
     }
 }

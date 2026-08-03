@@ -3,9 +3,15 @@ using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Services.Bookings
 {
-    public interface IBookingService
+    public class BookingService : IBookingService
     {
-        Booking CreateBooking(CreateBookingDTO dto);
-        void CancelBooking(int id);
+        public Booking CreateBooking(CreateBookingDTO booking)
+        {
+            throw new NotImplementedException();
+        }
+        public void CancelBooking(int id)
+        {
+            // Implementation for canceling a booking
+        }   
     }
 }
