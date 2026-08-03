@@ -31,8 +31,9 @@ namespace CinemaTicketBookingApi.Services.Movies
         {//Book if the movie still available in the cinema. 
             ValidateMovieBeforeUpdate(dTO);
             var existingMovie = _repository.GetMovieById(dTO.Id);
-            if (existingMovie == null) throw new MovieNotFoundException(dTO.Id);
-           _mapper.MapToExistingMovie(dTO, existingMovie);
+            if (existingMovie == null)
+                throw new MovieNotFoundException(dTO.Id);
+            _mapper.MapToExistingMovie(dTO, existingMovie);
             Movie updatedMovie = _repository.UpdateMovie(existingMovie);
             return _mapper.MapToMovieResponseDTO(updatedMovie);
         }
