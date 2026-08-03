@@ -42,14 +42,14 @@ namespace CinemaTicketBookingApi.Services.Movies
         {
             Movie movieToBeDeleted = _repository.GetMovieById(movieId);
             ValidateMovieBeforeDelete(movieToBeDeleted, movieId);
-
             _repository.DeleteMovie(movieToBeDeleted);
         }
 
         public Movie GetMovieById(int id)
         {
             var movie = _repository.GetMovieById(id);
-            //   throw new MovieNotFoundException(id);
+            if (movie == null)
+            throw new MovieNotFoundException(id);
             return movie;
         }
 
