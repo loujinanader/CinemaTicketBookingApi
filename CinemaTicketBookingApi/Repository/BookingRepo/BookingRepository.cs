@@ -22,12 +22,8 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
             _db.Bookings.Remove(booking);
             _db.SaveChanges();
         }
-          
-        public IEnumerable<Booking> GetAll()
-        {
-            return _db.Bookings;
-            
-        }
+                  public IEnumerable<Booking> GetAll()
+            => _db.Bookings;
         public Booking GetById(int id)
              => _db.Bookings.FirstOrDefault(b => b.Id == id);    
     }
