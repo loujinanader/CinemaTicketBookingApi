@@ -9,5 +9,6 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
        public Booking GetById(int id);
        public IEnumerable<Booking> GetAll();
        public void Delete(Booking booking);
+        IEnumerable<Booking> GetByMovieId(int movieId);
     }
 }

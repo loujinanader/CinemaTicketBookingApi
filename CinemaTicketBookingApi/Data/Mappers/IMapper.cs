@@ -1,4 +1,5 @@
-﻿using CinemaTicketBookingApi.DTOs.Movie;
+﻿using CinemaTicketBookingApi.DTOs.Booking;
+using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Data.Mappers
@@ -10,5 +11,7 @@ namespace CinemaTicketBookingApi.Data.Mappers
 
         Movie MapToMovie(UpdateMovieDTO dTO);
         void MapToExistingMovie(UpdateMovieDTO dto, Movie movie);
+        public Booking MapToBooking(CreateBookingDTO dto);
+        public BookingDtos MapToBookingDto(Booking booking);
     }
 }
