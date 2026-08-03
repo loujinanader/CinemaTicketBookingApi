@@ -43,5 +43,6 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 Genre = dTO.Genre
             };
         }
+       
     }
 }

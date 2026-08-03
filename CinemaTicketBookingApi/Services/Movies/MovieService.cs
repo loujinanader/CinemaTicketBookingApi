@@ -39,7 +39,14 @@ namespace CinemaTicketBookingApi.Services.Movies
             if (existingMovie == null) throw new MovieNotFoundException(dTO.Id);
 
             Movie movieToUpdate = _mapper.MapToMovie(dTO);
-            Movie updatedMovie = _repository.UpdateMovie(movieToUpdate);
+            existingMovie.Title = dTO.Title;
+            existingMovie.Genre = dTO.Genre;
+            existingMovie.Duration = dTO.Duration;
+            existingMovie.ReleaseYear = dTO.ReleaseYear;
+            existingMovie.AvailableSeats = dTO.AvailableSeats;
+            existingMovie.AvailableInCinema = dTO.AvailableInCinema;
+            Movie updatedMovie = _repository.UpdateMovie(existingMovie);
+
             MovieResponseDTO responseDTO = _mapper.MapToMovieResponseDTO(updatedMovie);
             return responseDTO;
         }
