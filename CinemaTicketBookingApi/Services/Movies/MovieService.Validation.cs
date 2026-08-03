@@ -16,6 +16,8 @@ namespace CinemaTicketBookingApi.Services.Movies
             if (movie == null)
                 throw new ArgumentNullException(nameof(movie));
 
+            if (_repository.MovieTitleExists(movie.Title))
+                throw new MovieAlreadyExistsException("A movie with this title already exists.");
         }
         public void ValidateMovieBeforeUpdate(UpdateMovieDTO movie)
         {

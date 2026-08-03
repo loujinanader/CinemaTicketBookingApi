@@ -31,12 +31,12 @@ namespace CinemaTicketBookingApi.Services.Movies
 
         }
 
-        public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO, int movieId)
+        public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO)
         {//Book if the movie still available in the cinema. 
 
             ValidateMovieBeforeUpdate(dTO);
             var existingMovie = _repository.GetMovieById(dTO.Id);
-            if (existingMovie == null) throw new Exception($"Movie with ID {dTO.Id} not found.");
+            if (existingMovie == null) throw new MovieNotFoundException(dTO.Id);
 
             Movie movieToUpdate = _mapper.MapToMovie(dTO);
             Movie updatedMovie = _repository.UpdateMovie(movieToUpdate);
@@ -57,7 +57,7 @@ namespace CinemaTicketBookingApi.Services.Movies
         public Movie GetMovieById(int id)
         {
             var movie = _repository.GetMovieById(id);
-            if (movie == null) throw new Exception($"Movie with ID {id} not found.");
+            //   throw new MovieNotFoundException(id);
             return movie;
         }
 
