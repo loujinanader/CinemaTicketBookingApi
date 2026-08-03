@@ -8,7 +8,7 @@ namespace CinemaTicketBookingApi.Services.Interfaces
     {
        public void CancelBooking(int id);
       public Booking CreateBooking(CreateBookingDTO booking);
-      public Booking GetAllBookings(int pageId);
-       public Booking GetBookingdetails(int id);
+      //public IEnumerable<BookingDto> GetAllBookings(int pageId);
+      // public BookingDto GetBookingdetails(int id);
     }
 }

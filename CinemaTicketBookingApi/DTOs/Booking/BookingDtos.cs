@@ -2,5 +2,12 @@
 {
     public class BookingDtos
     {
+        public int Id { get; set; }
+        public int MovieId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
+        public DateTime BookingDate { get; set; }
+        public int NumberOfTickets { get; set; }
+        public string MovieName { get; set; }
     }
 }
