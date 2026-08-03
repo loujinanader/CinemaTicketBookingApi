@@ -26,7 +26,7 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
         } 
         public Movie UpdateMovie(Movie movie)
         {
-            _db.Movies.Update(movie);
+           // _db.Movies.Update(movie);
             _db.SaveChanges();
             return movie;
         }
