@@ -22,9 +22,19 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
             _db.Bookings.Remove(booking);
             _db.SaveChanges();
         }
-                  public IEnumerable<Booking> GetAll()
-            => _db.Bookings;
+        public IEnumerable<Booking> GetAll()
+        {
+            return _db.Bookings
+                      .Include(b => b.Movie)
+                      .ToList();
+        }
         public Booking GetById(int id)
-             => _db.Bookings.FirstOrDefault(b => b.Id == id);    
+        {
+            return _db.Bookings
+                    .Include(b => b.Movie)
+                    .FirstOrDefault(b => b.Id == id);
+        }
+        public bool HasBookingsForMovie(int movieId)     
+            => _db.Bookings.Any(b => b.MovieId == movieId);
     }
 }
