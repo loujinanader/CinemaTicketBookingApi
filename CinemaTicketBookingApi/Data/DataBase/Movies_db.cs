@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CinemaTicketBookingApi.Models;
 
-namespace CinemaTicketBookingApi.Data
+namespace CinemaTicketBookingApi.Data.DataBase
 {
     public class Movies_db : DbContext
     {

@@ -1,4 +1,4 @@
-﻿using CinemaTicketBookingApi.Data;
+﻿using CinemaTicketBookingApi.Data.DataBase;
 using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
 

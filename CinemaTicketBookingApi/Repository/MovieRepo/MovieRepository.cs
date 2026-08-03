@@ -1,4 +1,4 @@
-﻿using CinemaTicketBookingApi.Data;
+﻿using CinemaTicketBookingApi.Data.DataBase;
 using CinemaTicketBookingApi.Models;
 namespace CinemaTicketBookingApi.Repository.MovieRepo
 {

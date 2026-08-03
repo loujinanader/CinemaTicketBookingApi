@@ -1,4 +1,4 @@
-using CinemaTicketBookingApi.Data;
+using CinemaTicketBookingApi.Data.DataBase;
 using CinemaTicketBookingApi.Repository.BookingRepo;
 using CinemaTicketBookingApi.Repository.MovieRepo;
 using CinemaTicketBookingApi.Services.Movies;
