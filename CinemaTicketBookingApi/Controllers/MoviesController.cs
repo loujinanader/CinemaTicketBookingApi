@@ -49,9 +49,9 @@ namespace CinemaTicketBookingApi.Controllers
         //Update
         [HttpPut]
 
-        public IActionResult UpdateMovie(Movie movie)
+        public IActionResult UpdateMovie(UpdateMovieDTO dTO, int movieId)
         {
-            var updatedMovie = _movieService.UpdateMovie(movie);
+            var updatedMovie = _movieService.UpdateMovie(dTO,movieId);
             return Ok(updatedMovie);
 
         }

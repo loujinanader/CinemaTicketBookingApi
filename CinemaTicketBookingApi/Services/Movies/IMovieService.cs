@@ -8,7 +8,7 @@ namespace CinemaTicketBookingApi.Services.Movies
        public MovieResponseDTO CreateMovie(CreateMovieDTO dTO);
        public void DeleteMovie(int movieId);
        public Movie GetMovieById(int id);
-       public Movie UpdateMovie(Movie movie);
+        public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO);
        public bool MovieTitleExists(string title);
        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
     }

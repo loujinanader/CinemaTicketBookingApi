@@ -4,47 +4,40 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
 {
     public class MovieRepository : IMovieRepository
     {
-        private readonly Movies_db _Db;
-        public MovieRepository(Movies_db Db)
+        private readonly Movies_db _db;
+        public MovieRepository(Movies_db db)
         {
-            _Db = Db;
+            _db = db;
         }
         public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
         {
-            return _Db.Movies
+            return _db.Movies
                       .Skip((pageNumber - 1) * pageSize)
                       .Take(pageSize)
                       .ToList();
         }
-
         public Movie GetMovieById(int id) 
-            => _Db.Movies.FirstOrDefault(m => m.Id == id);
-        
+            => _db.Movies.FirstOrDefault(m => m.Id == id);
         public Movie CreateMovie(Movie movie)
         {
-            _Db.Movies.Add(movie);
-            _Db.SaveChanges();
+            _db.Movies.Add(movie);
+            _db.SaveChanges();
             return movie;
         } 
-           
         public Movie UpdateMovie(Movie movie)
         {
-            _Db.Movies.Update(movie);
-            _Db.SaveChanges();
+            _db.Movies.Update(movie);
+            _db.SaveChanges();
             return movie;
         }
 
         public void DeleteMovie(Movie movie) {
-            _Db.Movies.Remove(movie);
-            _Db.SaveChanges();
+            _db.Movies.Remove(movie);
+            _db.SaveChanges();
         }
         public bool MovieTitleExists(string title)
-        {
-            return _Db.Movies.Any(m => m.Title == title);
-        }
+            => _db.Movies.Any(m => m.Title == title);
         public Movie GetMovieByTitle(string title)
-        {
-            return _Db.Movies.FirstOrDefault(m => m.Title == title);
-        }
+           => _db.Movies.FirstOrDefault(m => m.Title == title);
     }
 }

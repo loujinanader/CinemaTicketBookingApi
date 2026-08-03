@@ -6,6 +6,7 @@ using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;
 
 
+
 namespace CinemaTicketBookingApi.Services.Movies
 {
     public partial class MovieService : IMovieService
@@ -30,7 +31,18 @@ namespace CinemaTicketBookingApi.Services.Movies
 
         }
 
-       
+        public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO, int movieId)
+        {//Book if the movie still available in the cinema. 
+
+            ValidateMovieBeforeUpdate(dTO);
+            var existingMovie = _repository.GetMovieById(dTO.Id);
+            if (existingMovie == null) throw new Exception($"Movie with ID {dTO.Id} not found.");
+
+            Movie movieToUpdate = _mapper.MapToMovie(dTO);
+            Movie updatedMovie = _repository.UpdateMovie(movieToUpdate);
+            MovieResponseDTO responseDTO = _mapper.MapToMovieResponseDTO(updatedMovie);
+            return responseDTO;
+        }
 
         public void DeleteMovie(int movieId)
         {
@@ -60,14 +72,7 @@ namespace CinemaTicketBookingApi.Services.Movies
             return true;
         }
 
-        public Movie UpdateMovie(Movie movie)
-        {//Book if the movie still available in the cinema. 
-
-            if (movie == null) throw new ArgumentNullException(nameof(movie));
-            var existingMovie = _repository.GetMovieById(movie.Id);
-            if (existingMovie == null) throw new Exception($"Movie with ID {movie.Id} not found.");
-            return _repository.UpdateMovie(movie);
-        }
+    
         public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
         {
             return _repository.GetAllMovies(pageNumber, pageSize);

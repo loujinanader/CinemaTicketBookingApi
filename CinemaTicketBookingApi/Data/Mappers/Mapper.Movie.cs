@@ -3,7 +3,7 @@ using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Data.Mappers
 {
-    public partial class Mapper
+    public partial class Mapper : IMapper
     {
         public Movie MapToMovie(CreateMovieDTO dTO)
         {
@@ -28,6 +28,19 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 Duration = createdMoive.Duration,
                 Genre = createdMoive.Genre
 
+            };
+        }
+        public Movie MapToMovie(UpdateMovieDTO dTO)
+        {
+            return new Movie
+            {
+                Id = dTO.Id,
+                Title = dTO.Title,
+                ReleaseYear = dTO.ReleaseYear,
+                AvailableInCinema = dTO.AvailableInCinema,
+                AvailableSeats = dTO.AvailableSeats,
+                Duration = dTO.Duration,
+                Genre = dTO.Genre
             };
         }
     }

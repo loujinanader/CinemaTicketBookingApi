@@ -1,4 +1,5 @@
 using CinemaTicketBookingApi.Data.DataBase;
+using CinemaTicketBookingApi.Data.Mappers;
 using CinemaTicketBookingApi.Repository.BookingRepo;
 using CinemaTicketBookingApi.Repository.MovieRepo;
 using CinemaTicketBookingApi.Services.Movies;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 //builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IMapper, Mapper>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();

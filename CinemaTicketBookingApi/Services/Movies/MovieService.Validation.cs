@@ -17,5 +17,12 @@ namespace CinemaTicketBookingApi.Services.Movies
                 throw new ArgumentNullException(nameof(movie));
 
         }
+        public void ValidateMovieBeforeUpdate(UpdateMovieDTO movie)
+        {
+            if (movie == null)
+                throw new ArgumentNullException(nameof(movie));
+        }
+
+
     }
 }

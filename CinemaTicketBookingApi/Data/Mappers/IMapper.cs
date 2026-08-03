@@ -7,5 +7,7 @@ namespace CinemaTicketBookingApi.Data.Mappers
     {
         Movie MapToMovie(CreateMovieDTO dTO);
         MovieResponseDTO MapToMovieResponseDTO(Movie createdMoive);
+
+        Movie MapToMovie(UpdateMovieDTO dTO);
     }
 }
