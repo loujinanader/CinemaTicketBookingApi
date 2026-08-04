@@ -5,7 +5,7 @@ namespace CinemaTicketBookingApi.Services.Bookings
     {
       public BookingDtos CreateBooking(CreateBookingDTO dto);
        public void CancelBooking(int id);
-        public IEnumerable<BookingDtos> GetAll(int pageNumber, int pageSize);
+        public IEnumerable<BookingDtos> GetAllBookings(int pageNumber, int pageSize);
         public BookingDtos GetBookingById(int id);
     }
 }

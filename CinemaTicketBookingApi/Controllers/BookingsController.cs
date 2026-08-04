@@ -25,17 +25,13 @@ namespace CinemaTicketBookingApi.Controllers
             return Ok();
         }
         [HttpGet] //All Booking
-        public IActionResult GetAllBookings(int pageId)
-        { var booking = _bookingService.GetAll(pageId).Select(s => new BookingDtos
+        [HttpGet]
+        public IActionResult GetAllBookings(int pageNumber = 1, int pageSize = 10)
         {
-            Id = s.Id,
-            MovieId = s.MovieId,
-            NumberOfTickets = s.NumberOfTickets,
-            BookingDate = s.BookingDate,
-        });         
-            return Ok(booking);
+            var bookings = _bookingService.GetAllBookings(pageNumber, pageSize);
+            return Ok(bookings);
         }
-       //booking details
+        //booking details
         [HttpGet("{id}")]
         public IActionResult GetBookingdetails(int id)
         {

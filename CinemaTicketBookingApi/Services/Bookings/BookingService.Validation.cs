@@ -10,36 +10,32 @@ namespace CinemaTicketBookingApi.Services.Bookings
         {
             if (booking == null)
                 throw new ArgumentNullException(nameof(booking));
-            Movie movie = _movieRepository.GetMovieById(booking.MovieId);
-            if (movie == null)
-                throw new MovieNotFoundException(booking.MovieId);
-            if (!movie.AvailableInCinema)
-                throw new Exception("This movie is not available in the cinema.");
             if (booking.NumberOfTickets <= 0)
                 throw new ArgumentException("Number of tickets must be greater than zero.");
+            Movie movie = _movieRepository.GetMovieByTitle(booking.MovieName);
+            if (movie == null)
+                throw new MovieNotFoundException(booking.MovieName);
             if (!movie.AvailableInCinema)
                 throw new MovieNotAvailableException(movie.Id);
+            if (movie.AvailableSeats < booking.NumberOfTickets)
+                throw new InsufficientSeatsException("There are not enough available seats.");
             return movie;
         }
         private void DecreaseAvailableSeats(Movie movie, int numberOfTickets)
-        {
-            if (movie.AvailableSeats > numberOfTickets)
-                throw new InsufficientSeatsException("There are not enough available seats.");
-            movie.AvailableSeats -= numberOfTickets;
-        }
-        private Movie ValidateBeforeCancel(int id)
-        {
-            Movie movie = _movieRepository.GetMovieById(id);
-            if (movie == null)
-                throw new ArgumentNullException(nameof(movie));
-            return movie;
-        }
+                => movie.AvailableSeats -= numberOfTickets;
+         private Booking ValidateBeforeCancel(int bookingId)
+         {
+            Booking booking = _repository.GetById(bookingId);
+
+            if (booking == null)
+                throw new BookingNotFoundException(
+                    $"Booking with id {bookingId} was not found.");
+
+            return booking;
+         }
         private void IncreaseAvailableSeats(Movie movie, int numberOfTickets)
-        {
-           
-            if (numberOfTickets <= 0)
-                throw new ArgumentException("Number of tickets must be greater than zero.");
-            movie.AvailableSeats += numberOfTickets;
-        }
+                  => movie.AvailableSeats += numberOfTickets;
+
+
     }
 }

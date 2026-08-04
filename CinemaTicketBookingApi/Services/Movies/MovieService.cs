@@ -3,9 +3,6 @@ using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;
-
-
-
 namespace CinemaTicketBookingApi.Services.Movies
 {
     public partial class MovieService : IMovieService

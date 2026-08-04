@@ -5,12 +5,13 @@ namespace CinemaTicketBookingApi.Data.Mappers
 {
     public interface IMapper
     {
-        Movie MapToMovie(CreateMovieDTO dTO);
-        MovieResponseDTO MapToMovieResponseDTO(Movie createdMoive);
+       public Movie MapToMovie(CreateMovieDTO dTO);
+       public MovieResponseDTO MapToMovieResponseDTO(Movie createdMoive);
 
-        Movie MapToMovie(UpdateMovieDTO dTO);
-        void MapToExistingMovie(UpdateMovieDTO dto, Movie movie);
+        public Movie MapToMovie(UpdateMovieDTO dTO);
+        public void MapToExistingMovie(UpdateMovieDTO dto, Movie movie);
         public Booking MapToBooking(CreateBookingDTO dto);
         public BookingDtos MapToBookingDto(Booking booking);
+        public BookingResponseDto MaptoBookingResponse(Booking booking);
     }
 }

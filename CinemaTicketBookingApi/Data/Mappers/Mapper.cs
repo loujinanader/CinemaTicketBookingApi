@@ -12,13 +12,11 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 CustomerEmail = dto.CustomerEmail,
                 BookingDate = dto.BookingDate,
                 NumberOfTickets = dto.NumberOfTickets,
-                MovieId = dto.MovieId
             };
         }
         public BookingDtos MapToBookingDto(Booking booking)
         {
             if (booking == null) throw new ArgumentNullException(nameof(booking));
-            if (booking.Movie == null) throw new InvalidOperationException("Booking.Movie is null.");
             return new BookingDtos
             { 
                 Id = booking.Id,
@@ -27,6 +25,17 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 CustomerEmail = booking.CustomerEmail,
                 BookingDate = booking.BookingDate,
                 NumberOfTickets = booking.NumberOfTickets,
+                MovieName = booking.Movie.Title
+            };
+        }
+        public BookingResponseDto MaptoBookingResponse(Booking booking)
+        {
+            return new BookingResponseDto
+            {
+                CustomerEmail = booking.CustomerEmail,
+                CustomerName = booking.CustomerName,
+                BookingDate = booking.BookingDate,
+                NumberofTickets = booking.NumberOfTickets,
                 MovieName = booking.Movie.Title
             };
         }
