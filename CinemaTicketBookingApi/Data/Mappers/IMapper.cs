@@ -1,7 +1,6 @@
 ﻿using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Models;
-
 namespace CinemaTicketBookingApi.Data.Mappers
 {
     public interface IMapper

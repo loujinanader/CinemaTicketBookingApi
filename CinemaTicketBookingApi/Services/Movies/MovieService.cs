@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingApi.Data.Mappers;
 using CinemaTicketBookingApi.DTOs.Movie;
-using CinemaTicketBookingApi.Exceptions;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;

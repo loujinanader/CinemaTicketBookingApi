@@ -1,8 +1,6 @@
 ﻿using CinemaTicketBookingApi.Data.DataBase;
-using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace CinemaTicketBookingApi.Repository.BookingRepo
 {
     public class BookingRepository : IBookingRepository

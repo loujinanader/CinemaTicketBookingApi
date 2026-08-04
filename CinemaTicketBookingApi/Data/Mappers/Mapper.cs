@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
-
 namespace CinemaTicketBookingApi.Data.Mappers
 {
     public partial class Mapper : IMapper
@@ -16,7 +15,6 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 MovieId = dto.MovieId
             };
         }
-
         public BookingDtos MapToBookingDto(Booking booking)
         {
             return new BookingDtos

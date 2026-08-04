@@ -1,7 +1,4 @@
 ﻿using CinemaTicketBookingApi.DTOs.Booking;
-using CinemaTicketBookingApi.Exceptions;
-using CinemaTicketBookingApi.Models;
-
 namespace CinemaTicketBookingApi.Services.Bookings
 {
     public  partial class BookingService
@@ -10,6 +7,7 @@ namespace CinemaTicketBookingApi.Services.Bookings
         {
             if (booking == null)
                 throw new ArgumentNullException(nameof(booking));
+            if(mox)
             
         }
     }
