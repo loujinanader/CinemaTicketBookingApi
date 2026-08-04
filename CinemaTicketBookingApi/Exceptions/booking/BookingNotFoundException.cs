@@ -1,4 +1,4 @@
-﻿namespace CinemaTicketBookingApi.Exceptions
+﻿namespace CinemaTicketBookingApi.Exceptions.booking
 {
     public class BookingNotFoundException : Exception
     {

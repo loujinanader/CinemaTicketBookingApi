@@ -20,9 +20,11 @@ namespace CinemaTicketBookingApi.Services.Bookings
         {
            Movie movie = ValidateBeforeBooking(booking);
            Booking BookingToCreate =_mapper.MapToBooking(booking);
-            BookingDtos response = _mapper.MapToBookingDto(BookingToCreate);
-            DecreaseAvailableSeats(movie,booking.NumberOfTickets);
-            _repository.UpdateMovie(movie);
+            DecreaseAvailableSeats(movie, booking.NumberOfTickets);
+            _movieRepository.UpdateMovie(movie);
+            Booking createdBooking = _repository.Add(BookingToCreate);
+            createdBooking = _repository.GetById(createdBooking.Id);
+            BookingDtos response = _mapper.MapToBookingDto(createdBooking);
             return response;
         }
         public void CancelBooking(int id)
