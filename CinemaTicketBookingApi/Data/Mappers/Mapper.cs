@@ -17,8 +17,10 @@ namespace CinemaTicketBookingApi.Data.Mappers
         }
         public BookingDtos MapToBookingDto(Booking booking)
         {
+            if (booking == null) throw new ArgumentNullException(nameof(booking));
+            if (booking.Movie == null) throw new InvalidOperationException("Booking.Movie is null.");
             return new BookingDtos
-            {
+            { 
                 Id = booking.Id,
                 MovieId = booking.MovieId,
                 CustomerName = booking.CustomerName,

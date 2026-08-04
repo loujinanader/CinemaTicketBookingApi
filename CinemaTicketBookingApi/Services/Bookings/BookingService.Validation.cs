@@ -23,8 +23,9 @@ namespace CinemaTicketBookingApi.Services.Bookings
         }
         private void DecreaseAvailableSeats(Movie movie, int numberOfTickets)
         {
-            if (movie.AvailableSeats < numberOfTickets)
+            if (movie.AvailableSeats > numberOfTickets)
                 throw new InsufficientSeatsException("There are not enough available seats.");
+
             movie.AvailableSeats -= numberOfTickets;
         }
         private void ValidateBeforeCancel()

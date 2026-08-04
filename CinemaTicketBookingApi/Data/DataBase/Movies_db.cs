@@ -62,10 +62,10 @@ namespace CinemaTicketBookingApi.Data.DataBase
                 entity.Property(b => b.NumberOfTickets)
                       .IsRequired();
 
-                entity.HasOne<Movie>()
-                      .WithMany()
-                      .HasForeignKey(b => b.MovieId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(b => b.Movie)
+                    .WithMany(m => m.Bookings)
+                    .HasForeignKey(b => b.MovieId)
+                     .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
