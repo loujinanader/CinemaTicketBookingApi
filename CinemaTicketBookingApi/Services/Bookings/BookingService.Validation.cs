@@ -25,11 +25,21 @@ namespace CinemaTicketBookingApi.Services.Bookings
         {
             if (movie.AvailableSeats > numberOfTickets)
                 throw new InsufficientSeatsException("There are not enough available seats.");
-
             movie.AvailableSeats -= numberOfTickets;
         }
-        private void ValidateBeforeCancel()
+        private Movie ValidateBeforeCancel(int id)
         {
+            Movie movie = _movieRepository.GetMovieById(id);
+            if (movie == null)
+                throw new ArgumentNullException(nameof(movie));
+            return movie;
+        }
+        private void IncreaseAvailableSeats(Movie movie, int numberOfTickets)
+        {
+           
+            if (numberOfTickets <= 0)
+                throw new ArgumentException("Number of tickets must be greater than zero.");
+            movie.AvailableSeats += numberOfTickets;
         }
     }
 }

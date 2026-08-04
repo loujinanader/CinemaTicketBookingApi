@@ -13,8 +13,9 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
         public Booking Add(Booking booking)
         {
              _db.Bookings.Add(booking);
+             _db.SaveChanges();
             return booking;
-        }","explanation":"Leave Add as-is (no SaveChanges here); user chose to call SaveChanges in BookingService after Add, so no change needed in Add except remove commented SaveChanges to avoid confusion."}{
+        }
         public void Delete(Booking booking) {
             _db.Bookings.Remove(booking);
             _db.SaveChanges();
@@ -25,7 +26,7 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
                       .Include(b => b.Movie)
                       .ToList();
         }
-        public Booking GetById(int id)
+        public Booking? GetById(int id)
         {
             return _db.Bookings
                     .Include(b => b.Movie)

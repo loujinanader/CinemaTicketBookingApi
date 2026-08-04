@@ -1,5 +1,4 @@
-﻿using CinemaTicketBookingApi.Models;
-namespace CinemaTicketBookingApi.DTOs.Booking
+﻿namespace CinemaTicketBookingApi.DTOs.Booking
 {
     public class CreateBookingDTO
     {

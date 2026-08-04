@@ -3,7 +3,6 @@ using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.BookingRepo;
 using CinemaTicketBookingApi.Repository.MovieRepo;
-using Microsoft.AspNetCore.Http.HttpResults;
 namespace CinemaTicketBookingApi.Services.Bookings
 {
     public partial class BookingService : IBookingService
@@ -25,18 +24,18 @@ namespace CinemaTicketBookingApi.Services.Bookings
             _movieRepository.UpdateMovie(movie);
             Booking createdBooking = _repository.Add(BookingToCreate);
             if (createdBooking == null) throw new InvalidOperationException("Repository.Add returned null.");
-            // Ensure entity is persisted so GetById can find it
-            _dbContext.SaveChanges();
             var createdId = createdBooking.Id;
             createdBooking = _repository.GetById(createdBooking.Id);
             BookingDtos response = _mapper.MapToBookingDto(createdBooking);
             if (response == null) throw new InvalidOperationException($"Booking not found after creation. Id: {createdId}");
-            return response;","explanation":"Per user choice, call SaveChanges in the service after calling repository.Add so the subsequent GetById can find the persisted booking."}{
+            return response;
         }
         public void CancelBooking(int id)
         {
+           Movie movie = ValidateBeforeCancel(id);
             Booking bookingToBeCanceled = _repository.GetById(id);
-            //ValidateBookingBeforeCancel(bookingToBeCanceled, id);
+            IncreaseAvailableSeats(movie, bookingToBeCanceled.NumberOfTickets); 
+            _movieRepository.UpdateMovie(movie);
             _repository.Delete(bookingToBeCanceled);
         }   
         public IEnumerable<BookingDtos> GetAll(int pageNumber, int pageSize)
