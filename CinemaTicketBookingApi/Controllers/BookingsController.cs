@@ -1,7 +1,6 @@
-﻿using CinemaTicketBookingApi.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using CinemaTicketBookingApi.Repository.BookingRepo;
+﻿using Microsoft.AspNetCore.Mvc;
 using CinemaTicketBookingApi.DTOs.Booking;
+using CinemaTicketBookingApi.Services.Bookings;
 namespace CinemaTicketBookingApi.Controllers
 {
     [Route("api/[controller]")]
@@ -13,29 +12,24 @@ namespace CinemaTicketBookingApi.Controllers
         {
             _bookingService = bookingService;
         }
-
-        //create
         [HttpPost]
         public IActionResult CreateBooking(CreateBookingDTO booking)
         {
             var createdBooking = _bookingService.CreateBooking(booking);
             return Ok(createdBooking);
         }
-
-        //Delete
         [HttpDelete("{id}")]
         public IActionResult DeleteBooking(int id)
         {
             _bookingService.CancelBooking(id);
             return Ok();
         }
-
         [HttpGet] //All Booking
-        public IActionResult GetAllBookings([FromQuery] int pageId)
+        public IActionResult GetAllBookings(int pageId)
         {
-           throw new NotImplementedException();
+          var booking = _bookingService.GetAll(pageId);
+            return Ok(booking);
         }
-
         //booking details
         [HttpGet("{id}")]
         public IActionResult GetBookingdetails(int id)

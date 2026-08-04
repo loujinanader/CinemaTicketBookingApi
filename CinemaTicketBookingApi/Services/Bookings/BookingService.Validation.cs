@@ -1,5 +1,6 @@
 ﻿using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Exceptions;
+using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Services.Bookings
 {
@@ -9,6 +10,7 @@ namespace CinemaTicketBookingApi.Services.Bookings
         {
             if (booking == null)
                 throw new ArgumentNullException(nameof(booking));
+            
         }
     }
 }

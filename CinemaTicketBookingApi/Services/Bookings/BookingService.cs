@@ -2,8 +2,6 @@
 using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.BookingRepo;
-using CinemaTicketBookingApi.Repository.MovieRepo;
-
 namespace CinemaTicketBookingApi.Services.Bookings
 {
     public partial class BookingService : IBookingService
@@ -18,11 +16,14 @@ namespace CinemaTicketBookingApi.Services.Bookings
         public Booking CreateBooking(CreateBookingDTO booking)
         {
             ValidateBeforeBooking(booking);
-           throw new NotImplementedException();
+           Booking BookingToCreate =_mapper.MapToBooking(booking);
+            return BookingToCreate;
         }
         public void CancelBooking(int id)
         {
-            // Implementation for canceling a booking
+            Booking bookingToBeCanceled = _repository.GetById(id);
+            //ValidateBookingBeforeCancel(bookingToBeCanceled, id);
+            _repository.Delete(bookingToBeCanceled);
         }   
     }
 }
