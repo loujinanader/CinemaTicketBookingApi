@@ -1,5 +1,4 @@
 ﻿using CinemaTicketBookingApi.Models;
-using CinemaTicketBookingApi.Exceptions;
 using CinemaTicketBookingApi.DTOs.Movie;
 namespace CinemaTicketBookingApi.Services.Movies
 {

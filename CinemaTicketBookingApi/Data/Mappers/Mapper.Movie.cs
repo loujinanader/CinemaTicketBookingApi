@@ -1,6 +1,5 @@
 ﻿using CinemaTicketBookingApi.DTOs.Movie;
 using CinemaTicketBookingApi.Models;
-
 namespace CinemaTicketBookingApi.Data.Mappers
 {
     public partial class Mapper : IMapper

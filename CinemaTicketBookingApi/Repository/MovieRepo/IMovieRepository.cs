@@ -1,7 +1,4 @@
-﻿using System;
-using CinemaTicketBookingApi.Models;
-using CinemaTicketBookingApi.DTOs;
-
+﻿using CinemaTicketBookingApi.Models;
 namespace CinemaTicketBookingApi.Repository.MovieRepo
 {
     public interface IMovieRepository

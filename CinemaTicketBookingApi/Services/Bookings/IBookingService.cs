@@ -3,9 +3,9 @@ namespace CinemaTicketBookingApi.Services.Bookings
 {
     public interface IBookingService
     {
-      public BookingDtos CreateBooking(CreateBookingDTO dto);
+      public BookingResponseDto CreateBooking(CreateBookingDTO dto);
        public void CancelBooking(int id);
-        public IEnumerable<BookingDtos> GetAllBookings(int pageNumber, int pageSize);
-        public BookingDtos GetBookingById(int id);
+        public IEnumerable<BookingResponseDto> GetAllBookings(int pageNumber, int pageSize);
+        public BookingResponseDto GetBookingById(int id);
     }
 }

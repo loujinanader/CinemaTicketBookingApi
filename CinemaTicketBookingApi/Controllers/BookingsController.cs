@@ -25,7 +25,6 @@ namespace CinemaTicketBookingApi.Controllers
             return Ok();
         }
         [HttpGet] //All Booking
-        [HttpGet]
         public IActionResult GetAllBookings(int pageNumber = 1, int pageSize = 10)
         {
             var bookings = _bookingService.GetAllBookings(pageNumber, pageSize);

@@ -39,5 +39,6 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 MovieName = booking.Movie.Title
             };
         }
+
     }
 }

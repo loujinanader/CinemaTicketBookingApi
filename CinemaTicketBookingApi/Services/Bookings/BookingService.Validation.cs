@@ -22,7 +22,7 @@ namespace CinemaTicketBookingApi.Services.Bookings
             return movie;
         }
         private void DecreaseAvailableSeats(Movie movie, int numberOfTickets)
-                => movie.AvailableSeats -= numberOfTickets;
+              =>    movie.AvailableSeats -= numberOfTickets;
          private Booking ValidateBeforeCancel(int bookingId)
          {
             Booking booking = _repository.GetById(bookingId);

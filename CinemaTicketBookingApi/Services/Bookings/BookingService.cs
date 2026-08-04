@@ -11,13 +11,14 @@ namespace CinemaTicketBookingApi.Services.Bookings
         private readonly IBookingRepository _repository;
         private readonly IMapper _mapper;
         private readonly IMovieRepository _movieRepository;
+
         public BookingService(IBookingRepository repository, IMapper mapper,IMovieRepository movieRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _movieRepository = movieRepository;
         }
-        public BookingDtos CreateBooking(CreateBookingDTO booking)
+        public BookingResponseDto CreateBooking(CreateBookingDTO booking)
         {
             Movie movie = ValidateBeforeBooking(booking);  
            Booking BookingToCreate =_mapper.MapToBooking(booking);
@@ -28,7 +29,7 @@ namespace CinemaTicketBookingApi.Services.Bookings
             if (createdBooking == null)
                 throw new InvalidOperationException("Failed to create booking.");
             createdBooking = _repository.GetById(createdBooking.Id);
-            return _mapper.MapToBookingDto(createdBooking);
+           return _mapper.MaptoBookingResponse(createdBooking);
         }
         public void CancelBooking(int id)
         {
@@ -37,22 +38,23 @@ namespace CinemaTicketBookingApi.Services.Bookings
             IncreaseAvailableSeats(movie, booking.NumberOfTickets);
             _movieRepository.UpdateMovie(movie);
             _repository.Delete(booking);
-        }   
-        public IEnumerable<BookingDtos> GetAllBookings(int pageNumber, int pageSize)
+        }
+        public IEnumerable<BookingResponseDto> GetAllBookings(int pageNumber, int pageSize)
         {
             var bookings = _repository.GetAll();
-            var paged = bookings
+
+            return bookings
                 .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
-            return paged.Select(b => _mapper.MapToBookingDto(b));
+                .Take(pageSize)
+                .Select(b => _mapper.MaptoBookingResponse(b));
         }
-        public BookingDtos GetBookingById(int id)
+        public BookingResponseDto GetBookingById(int id)
         {
             var booking = _repository.GetById(id);
             if (booking == null)
                 throw new BookingNotFoundException(
                     $"Booking with id {id} was not found.");
-            return _mapper.MapToBookingDto(booking);
+            return _mapper.MaptoBookingResponse(booking);
         }
     }
 }
