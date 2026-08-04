@@ -39,7 +39,12 @@ namespace CinemaTicketBookingApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBookingdetails(int id)
         {
-            throw new NotImplementedException();
+            var booking = _bookingService.GetBookingById(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return Ok(booking);
         }
     }
 }
