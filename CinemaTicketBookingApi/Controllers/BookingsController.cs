@@ -16,7 +16,7 @@ namespace CinemaTicketBookingApi.Controllers
         public IActionResult CreateBooking(CreateBookingDTO booking)
         {
             var createdBooking = _bookingService.CreateBooking(booking);
-            return Ok(createdBooking);
+            return Created("", createdBooking);
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteBooking(int id)
@@ -25,12 +25,19 @@ namespace CinemaTicketBookingApi.Controllers
             return Ok();
         }
         [HttpGet] //All Booking
-        public IActionResult GetAllBookings(int pageId)
-        {
-          var booking = _bookingService.GetAll(pageId);
-            return Ok(booking);
-        }
-        //booking details
+                public IActionResult GetAllBookings(int pageId)
+                {
+                //          var booking = _bookingService.using System.Collections.Generic;
+
+                    //       interface IBookingService
+                        //{
+                    //  void CancelBooking(int id);
+                  //  BookingDtos CreateBooking(CreateBookingDTO booking);
+                   //  IEnumerable<BookingDtos> GetAll(int pageId);
+                    //}(pageId);
+                    //            return Ok(booking);
+                }
+                //booking details
         [HttpGet("{id}")]
         public IActionResult GetBookingdetails(int id)
         {

@@ -18,10 +18,11 @@ namespace CinemaTicketBookingApi.Services.Bookings
         }
         public BookingDtos CreateBooking(CreateBookingDTO booking)
         {
-            ValidateBeforeBooking(booking);
+           Movie movie = ValidateBeforeBooking(booking);
            Booking BookingToCreate =_mapper.MapToBooking(booking);
             BookingDtos response = _mapper.MapToBookingDto(BookingToCreate);
-            //_repository.Add(booking);
+            DecreaseAvailableSeats(movie,booking.NumberOfTickets);
+            _repository.UpdateMovie(movie);
             return response;
         }
         public void CancelBooking(int id)
@@ -30,5 +31,18 @@ namespace CinemaTicketBookingApi.Services.Bookings
             //ValidateBookingBeforeCancel(bookingToBeCanceled, id);
             _repository.Delete(bookingToBeCanceled);
         }   
+        public IEnumerable<BookingDtos> GetAll(int pageNumber, int pageSize)
+        {
+            var bookings = _repository.GetAll();
+            var paged = bookings
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+            return paged.Select(b => _mapper.MapToBookingDto(b));
+        }
+        public BookingDtos GetBookingById(int id)
+        {
+            var booking = _repository.GetById(id);
+            return _mapper.MapToBookingDto(booking);
+        }
     }
 }
