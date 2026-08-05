@@ -39,7 +39,6 @@ namespace CinemaTicketBookingApi.Controllers
 
         }
         [HttpGet]
-        [HttpGet]
         public IActionResult GetAllMovies([FromQuery] MovieFilterParams filter)
         {
             var movies = _movieService.GetAllMovies(filter);
