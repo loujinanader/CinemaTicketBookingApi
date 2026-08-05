@@ -16,7 +16,12 @@ namespace CinemaTicketBookingApi.Data.Mappers
             return new MovieResponseV2DTO {
                 Id = movie.Id,
                 Title = movie.Title,
-                AvailableSeats = movie.AvailableSeats
+                AvailableSeats = movie.AvailableSeats,
+                Genre = movie.Genre,
+                Duration = movie.Duration,
+                RelaeseYear = movie.ReleaseYear,
+                AvailableInCinema = movie.AvailableInCinema
+
             };
         }
     }
