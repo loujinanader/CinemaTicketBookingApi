@@ -1,5 +1,6 @@
 ﻿using CinemaTicketBookingApi.Data.Mappers;
 using CinemaTicketBookingApi.DTOs.Movie;
+using CinemaTicketBookingApi.DTOs.versioning;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using CinemaTicketBookingApi.Models;
 using CinemaTicketBookingApi.Repository.MovieRepo;
@@ -59,6 +60,17 @@ namespace CinemaTicketBookingApi.Services.Movies
             var movies = _repository.GetAllMovies(pageNumber, pageSize);
 
             return movies.Select(m => _mapper.MapToMovieResponseDTO(m));
+        }
+        public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(int pageNumber, int pageSize)
+        {
+            var movies = _repository.GetAllMovies(pageNumber, pageSize);
+            return movies.Select(m => _mapper.MapToMovieResponseV1(m));
+
+        }
+
+        public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(int pageNumber, int pageSize){
+            var movies = _repository.GetAllMovies(pageNumber, pageSize);
+            return movies.Select(m => _mapper.MapToMovieResponseV2(m));
         }
     }
 }

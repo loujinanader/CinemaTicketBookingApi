@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using CinemaTicketBookingApi.Services.Movies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaTicketBookingApi.Controllers.Versioning
@@ -8,11 +9,19 @@ namespace CinemaTicketBookingApi.Controllers.Versioning
     [Route("api/v{version:apiVersion}/movies")]
     public class MoviesV1Controller : ControllerBase
     {
-        [HttpGet("{id}")]
-        public IActionResult GetMovieById(int id)
+        private readonly IMovieService _movieService;
+
+        public MoviesV1Controller(IMovieService movieService)
         {
-            // Implementation for getting movie by ID
-            return Ok();
+            _movieService = movieService;
         }
+
+        [HttpGet]
+        public IActionResult GetAllMovies(int pageNumber = 1, int pageSize = 10)
+        {
+            var movies = _movieService.GetAllMoviesV1(pageNumber, pageSize);
+            return Ok(movies);
+        }
+
     }
 }
