@@ -5,6 +5,8 @@ using CinemaTicketBookingApi.Repository.MovieRepo;
 using CinemaTicketBookingApi.Services.Movies;
 using CinemaTicketBookingApi.Services.Bookings;
 using Microsoft.EntityFrameworkCore;
+using Asp.Versioning;
+
 
 
 
@@ -15,6 +17,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+}).AddApiExplorer(Options =>
+{
+    Options.GroupNameFormat = "'v'VVV";
+    Options.SubstituteApiVersionInUrl = true;
+});
 
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
