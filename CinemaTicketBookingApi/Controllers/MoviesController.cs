@@ -12,7 +12,7 @@ namespace CinemaTicketBookingApi.Controllers
         {
             _movieService = movieService;
         }
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetMovieById(int id)
         {
             var movie = _movieService.GetMovieById(id);
@@ -36,6 +36,12 @@ namespace CinemaTicketBookingApi.Controllers
             var updatedMovie = _movieService.UpdateMovie(dTO);
             return Ok(updatedMovie);
 
+        }
+        [HttpGet]
+        public IActionResult GetAllMovies(int pageNumber = 1, int pageSize = 2)
+        {
+            var movies = _movieService.GetAllMovies(pageNumber, pageSize);
+            return Ok(movies);
         }
     }
 }

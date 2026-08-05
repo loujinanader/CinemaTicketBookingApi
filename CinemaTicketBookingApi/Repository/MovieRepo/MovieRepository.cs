@@ -37,6 +37,6 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
         public bool MovieTitleExists(string title)
             => _db.Movies.Any(m => m.Title == title);
         public Movie GetMovieByTitle(string title)
-           => _db.Movies.FirstOrDefault(m => m.Title == title);
+             => _db.Movies.FirstOrDefault(m => m.Title == title);
     }
 }

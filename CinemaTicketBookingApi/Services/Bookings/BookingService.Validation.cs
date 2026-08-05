@@ -34,7 +34,11 @@ namespace CinemaTicketBookingApi.Services.Bookings
             return movie;
         }
         private void DecreaseAvailableSeats(Movie movie, int numberOfTickets)
-              =>    movie.AvailableSeats -= numberOfTickets;
+        {
+             movie.AvailableSeats -= numberOfTickets;
+            if (movie.AvailableSeats == 0)
+                  movie.AvailableInCinema = false;
+        }
          private Booking ValidateBeforeCancel(int bookingId)
          {
             Booking booking = _repository.GetById(bookingId);
@@ -46,8 +50,11 @@ namespace CinemaTicketBookingApi.Services.Bookings
             return booking;
          }
         private void IncreaseAvailableSeats(Movie movie, int numberOfTickets)
-                  => movie.AvailableSeats += numberOfTickets;
+        { 
+                   movie.AvailableSeats += numberOfTickets;
+                   movie.AvailableInCinema = true;
 
+        }
 
     }
 }

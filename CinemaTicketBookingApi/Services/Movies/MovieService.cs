@@ -54,7 +54,11 @@ namespace CinemaTicketBookingApi.Services.Movies
                throw new MovieAlreadyExistsException("A movie with this title already exists.");
                return true;
         }
-        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
-            => _repository.GetAllMovies(pageNumber, pageSize);
+        public IEnumerable<MovieResponseDTO> GetAllMovies(int pageNumber, int pageSize)
+        {
+            var movies = _repository.GetAllMovies(pageNumber, pageSize);
+
+            return movies.Select(m => _mapper.MapToMovieResponseDTO(m));
+        }
     }
 }
