@@ -55,22 +55,30 @@ namespace CinemaTicketBookingApi.Services.Movies
                throw new MovieAlreadyExistsException("A movie with this title already exists.");
                return true;
         }
-        public IEnumerable<MovieResponseDTO> GetAllMovies(int pageNumber, int pageSize)
+        public PagedResult<MovieResponseDTO> GetAllMovies(MovieFilterParams filter)
         {
-            var movies = _repository.GetAllMovies(pageNumber, pageSize);
+            var result = _repository.GetAllMovies(filter);
 
-            return movies.Select(m => _mapper.MapToMovieResponseDTO(m));
+            return new PagedResult<MovieResponseDTO>
+            {
+                Data = result.Data
+                    .Select(m => _mapper.MapToMovieResponseDTO(m)),
+
+                Page = result.Page,
+                PageSize = result.PageSize,
+                TotalCount = result.TotalCount
+            };
         }
-        public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(int pageNumber, int pageSize)
+        public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(MovieFilterParams filter)
         {
-            var movies = _repository.GetAllMovies(pageNumber, pageSize);
-            return movies.Select(m => _mapper.MapToMovieResponseV1(m));
-
+            var result = _repository.GetAllMovies(filter);
+            return result.Data.Select(m => _mapper.MapToMovieResponseV1(m));
         }
 
-        public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(int pageNumber, int pageSize){
-            var movies = _repository.GetAllMovies(pageNumber, pageSize);
-            return movies.Select(m => _mapper.MapToMovieResponseV2(m));
+        public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(MovieFilterParams filter)
+        {
+            var result = _repository.GetAllMovies(filter);
+            return result.Data.Select(m => _mapper.MapToMovieResponseV2(m));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using CinemaTicketBookingApi.Services.Movies;
 using Microsoft.AspNetCore.Mvc;
+using CinemaTicketBookingApi.Models;
 
 namespace CinemaTicketBookingApi.Controllers.Versioning
 {
@@ -17,9 +18,9 @@ namespace CinemaTicketBookingApi.Controllers.Versioning
         }
 
         [HttpGet]
-        public IActionResult GetAllMovies(int pageNumber = 1, int pageSize = 2)
+        public IActionResult GetAllMovies([FromQuery] MovieFilterParams filter)
         {
-            var movies = _movieService.GetAllMoviesV1(pageNumber, pageSize);
+            var movies = _movieService.GetAllMoviesV1(filter);
             return Ok(movies);
         }
 

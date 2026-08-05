@@ -9,12 +9,56 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
         {
             _db = db;
         }
-        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize)
+        public PagedResult<Movie> GetAllMovies(MovieFilterParams filter)
         {
-            return _db.Movies
-                      .Skip((pageNumber - 1) * pageSize)
-                      .Take(pageSize)
-                      .ToList();
+            IQueryable<Movie> query = _db.Movies;
+            // Search
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+            {
+                query = query.Where(m =>
+                    m.Title.Contains(filter.Search));
+            }
+            // Filter
+            if (!string.IsNullOrWhiteSpace(filter.Genre))
+            {
+                query = query.Where(m =>
+                    m.Genre == filter.Genre);
+            }
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(filter.SortBy))
+            {
+                switch (filter.SortBy.ToLower())
+                {
+                    case "title":
+
+                        query = filter.Descending
+                            ? query.OrderByDescending(m => m.Title)
+                            : query.OrderBy(m => m.Title);
+
+                        break;
+
+                    case "releaseyear":
+
+                        query = filter.Descending
+                            ? query.OrderByDescending(m => m.ReleaseYear)
+                            : query.OrderBy(m => m.ReleaseYear);
+
+                        break;
+                }
+            }
+            int totalCount = query.Count();
+
+            var data = query
+                .Skip((filter.Page - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+            return new PagedResult<Movie>
+            {
+                Data = data,
+                Page = filter.Page,
+                PageSize = filter.PageSize,
+                TotalCount = totalCount
+            };
         }
         public Movie GetMovieById(int id) 
             => _db.Movies.FirstOrDefault(m => m.Id == id);

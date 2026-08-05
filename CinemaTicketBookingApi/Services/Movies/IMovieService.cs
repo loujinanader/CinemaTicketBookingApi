@@ -10,9 +10,10 @@ namespace CinemaTicketBookingApi.Services.Movies
        public Movie GetMovieById(int id);
         public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO);
        public bool MovieTitleExists(string title);
-        public IEnumerable<MovieResponseDTO> GetAllMovies(int pageNumber, int pageSize);
-       public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(int pageNumber, int pageSize);
+        public PagedResult<MovieResponseDTO> GetAllMovies(MovieFilterParams filter);
 
-        public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(int pageNumber, int pageSize);
+        public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(MovieFilterParams filter);
+
+        public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(MovieFilterParams filter);
     }
 }

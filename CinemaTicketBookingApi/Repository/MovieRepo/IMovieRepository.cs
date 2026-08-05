@@ -3,7 +3,7 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
 {
     public interface IMovieRepository
     {
-        public IEnumerable<Movie> GetAllMovies(int pageNumber, int pageSize);
+        public PagedResult<Movie> GetAllMovies(MovieFilterParams filter);
         public Movie GetMovieById(int id);
         public Movie CreateMovie(Movie movie);
         public Movie UpdateMovie(Movie movie);
