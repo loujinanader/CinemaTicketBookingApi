@@ -7,16 +7,9 @@ using CinemaTicketBookingApi.Services.Bookings;
 using CinemaTicketBookingApi.Services.Movies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
-
-
-
-
-
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CinemaTicketBookingApi", Version = "v1" });
@@ -24,7 +17,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
-
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -35,22 +27,16 @@ builder.Services.AddApiVersioning(options =>
     Options.GroupNameFormat = "'v'VVV";
     Options.SubstituteApiVersionInUrl = true;
 });
-
-
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IMapper, Mapper>();
-
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 //builder.Services.AddOpenApi();
 builder.Services.AddDbContext<Movies_db>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -60,14 +46,8 @@ app.UseSwagger();
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema API V1");
         options.SwaggerEndpoint("/swagger/v2/swagger.json", "Cinema API V2");
     });
-
 }
-
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
