@@ -5,7 +5,7 @@ namespace CinemaTicketBookingApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MoviesController : Controller
+    public class MoviesController : ControllerBase
     {
         private readonly IMovieService _movieService;
         public MoviesController(IMovieService movieService)
