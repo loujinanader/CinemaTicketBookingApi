@@ -27,8 +27,6 @@ namespace CinemaTicketBookingApi.Services.Bookings
             {
                 throw new ArgumentException("Invalid email format.");
             }
-            if (_repository.CustomerExists(booking.CustomerEmail))
-                throw new Exception("This customer has already booked.");
             if (string.IsNullOrWhiteSpace(booking.CustomerName))
                 throw new ArgumentException("Customer name is required.");
             if (string.IsNullOrWhiteSpace(booking.MovieName))
