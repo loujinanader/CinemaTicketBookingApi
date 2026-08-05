@@ -19,6 +19,20 @@ namespace CinemaTicketBookingApi.Services.Bookings
                 throw new MovieNotAvailableException(movie.Id);
             if (movie.AvailableSeats < booking.NumberOfTickets)
                 throw new InsufficientSeatsException("There are not enough available seats.");
+            if (string.IsNullOrWhiteSpace(booking.CustomerEmail))
+                throw new ArgumentException("Customer email is required.");
+
+            if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute()
+                    .IsValid(booking.CustomerEmail))
+            {
+                throw new ArgumentException("Invalid email format.");
+            }
+            if (_repository.CustomerExists(booking.CustomerEmail))
+                throw new Exception("This customer has already booked.");
+            if (string.IsNullOrWhiteSpace(booking.CustomerName))
+                throw new ArgumentException("Customer name is required.");
+            if (string.IsNullOrWhiteSpace(booking.MovieName))
+                throw new ArgumentException("Movie name is required.");
             return movie;
         }
         private void DecreaseAvailableSeats(Movie movie, int numberOfTickets)

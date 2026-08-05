@@ -34,5 +34,8 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
         }
         public bool HasBookingsForMovie(int movieId)     
             => _db.Bookings.Any(b => b.MovieId == movieId);
+        public bool CustomerExists(string email)
+            => _db.Bookings.Any(b => b.CustomerEmail == email);
+        
     }
 }

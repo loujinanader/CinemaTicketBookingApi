@@ -10,6 +10,7 @@ namespace CinemaTicketBookingApi.Repository.BookingRepo
         public IEnumerable<Booking> GetAll();
         public Booking GetById(int id);
         public bool HasBookingsForMovie(int movieId);
+        public bool CustomerExists(string email);
     }
 }
    
