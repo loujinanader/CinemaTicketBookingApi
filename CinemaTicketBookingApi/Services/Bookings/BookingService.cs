@@ -11,12 +11,14 @@ namespace CinemaTicketBookingApi.Services.Bookings
         private readonly IBookingRepository _repository;
         private readonly IMapper _mapper;
         private readonly IMovieRepository _movieRepository;
+        private readonly EmailService _emailService;
 
-        public BookingService(IBookingRepository repository, IMapper mapper,IMovieRepository movieRepository)
+        public BookingService(IBookingRepository repository, IMapper mapper,IMovieRepository movieRepository, EmailService emailService)
         {
             _repository = repository;
             _mapper = mapper;
             _movieRepository = movieRepository;
+            _emailService = emailService;
         }
         public BookingResponseDto CreateBooking(CreateBookingDTO booking)
         {
@@ -29,14 +31,26 @@ namespace CinemaTicketBookingApi.Services.Bookings
             if (createdBooking == null)
                 throw new InvalidOperationException("Failed to create booking.");
             createdBooking = _repository.GetById(createdBooking.Id);
-           return _mapper.MaptoBookingResponse(createdBooking);
+            _emailService.SendEmail(
+             booking.CustomerEmail,
+                 "Booking Confirmation",
+                 $"Your booking for '{movie.Title}' has been confirmed."
+);
+            return _mapper.MaptoBookingResponse(createdBooking);
+
         }
+
         public void CancelBooking(int id)
         {
           Booking booking = ValidateBeforeCancel(id);
             Movie movie = _movieRepository.GetMovieById(booking.MovieId);
             IncreaseAvailableSeats(movie, booking.NumberOfTickets);
             _movieRepository.UpdateMovie(movie);
+            _emailService.SendEmail(
+            booking.CustomerEmail,
+               "Booking Cancelled",
+                $"Your booking for '{movie.Title}' has been cancelled."
+);
             _repository.Delete(booking);
         }
         public IEnumerable<BookingResponseDto> GetAllBookings(int pageNumber, int pageSize)

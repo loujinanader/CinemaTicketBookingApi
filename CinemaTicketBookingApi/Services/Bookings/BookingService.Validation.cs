@@ -21,7 +21,6 @@ namespace CinemaTicketBookingApi.Services.Bookings
                 throw new InsufficientSeatsException("There are not enough available seats.");
             if (string.IsNullOrWhiteSpace(booking.CustomerEmail))
                 throw new ArgumentException("Customer email is required.");
-
             if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute()
                     .IsValid(booking.CustomerEmail))
             {

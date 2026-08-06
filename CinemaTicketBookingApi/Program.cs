@@ -1,13 +1,14 @@
 using Asp.Versioning;
 using CinemaTicketBookingApi.Data.DataBase;
 using CinemaTicketBookingApi.Data.Mappers;
+using CinemaTicketBookingApi.Middleware;
 using CinemaTicketBookingApi.Repository.BookingRepo;
 using CinemaTicketBookingApi.Repository.MovieRepo;
+using CinemaTicketBookingApi.Services;
 using CinemaTicketBookingApi.Services.Bookings;
 using CinemaTicketBookingApi.Services.Movies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
-using CinemaTicketBookingApi.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +29,7 @@ builder.Services.AddApiVersioning(options =>
     Options.GroupNameFormat = "'v'VVV";
     Options.SubstituteApiVersionInUrl = true;
 });
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
