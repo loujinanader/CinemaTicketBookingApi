@@ -15,5 +15,6 @@ namespace CinemaTicketBookingApi.Services.Movies
         public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(MovieFilterParams filter);
 
         public IEnumerable<MovieResponseV2DTO> GetAllMoviesV2(MovieFilterParams filter);
+        public MovieResponseDTO UpdateAvailableSeats(int id, UpdateAvailableSeatsDTO dto);
     }
 }

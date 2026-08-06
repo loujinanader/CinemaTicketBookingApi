@@ -80,5 +80,16 @@ namespace CinemaTicketBookingApi.Services.Movies
             var result = _repository.GetAllMovies(filter);
             return result.Data.Select(m => _mapper.MapToMovieResponseV2(m));
         }
+        public MovieResponseDTO UpdateAvailableSeats(int id, UpdateAvailableSeatsDTO dto)
+        {
+            var movie = _repository.GetMovieById(id);
+            if (movie == null)
+                throw new MovieNotFoundException(id);
+            if (dto.AvailableSeats < 0)
+                throw new ArgumentException("Available seats cannot be negative.");
+            movie.AvailableSeats = dto.AvailableSeats;
+             _repository.UpdateMovie(movie);
+            return _mapper.MapToMovieResponseDTO(movie);
+        }
     }
 }

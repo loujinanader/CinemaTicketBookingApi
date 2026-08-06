@@ -23,7 +23,7 @@ namespace CinemaTicketBookingApi.Controllers
         public IActionResult CreateMovie(CreateMovieDTO dTO)
         {
             var createdMovie = _movieService.CreateMovie(dTO);
-            return Created("", createdMovie);
+            return CreatedAtAction(nameof(GetMovieById), new { id = createdMovie.ID }, createdMovie);
         }
         [HttpDelete]
         public IActionResult DeleteMovie(int movieId)
@@ -31,12 +31,11 @@ namespace CinemaTicketBookingApi.Controllers
             _movieService.DeleteMovie(movieId);
             return Ok();
         }
-        [HttpPut]
-        public IActionResult UpdateMovie(UpdateMovieDTO dTO)
+        [HttpPatch("{id}/available-seats")]
+        public IActionResult UpdateAvailableSeats(int id, UpdateAvailableSeatsDTO dto)
         {
-            var updatedMovie = _movieService.UpdateMovie(dTO);
-            return Ok(updatedMovie);
-
+            var movie = _movieService.UpdateAvailableSeats(id, dto);
+            return Ok(movie);
         }
         [HttpGet]
         public IActionResult GetAllMovies([FromQuery] MovieFilterParams filter)

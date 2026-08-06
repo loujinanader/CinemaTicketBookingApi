@@ -16,7 +16,7 @@ namespace CinemaTicketBookingApi.Controllers
         public IActionResult CreateBooking(CreateBookingDTO booking)
         {
             var createdBooking = _bookingService.CreateBooking(booking);
-            return Created("", createdBooking);
+            return CreatedAtAction(nameof(GetBookingdetails), new { id = createdBooking.Id }, createdBooking);
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteBooking(int id)

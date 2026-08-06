@@ -2,6 +2,7 @@
 {
     public class BookingResponseDto
     {
+        public int Id { get; set; }
         public string MovieName { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
