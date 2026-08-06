@@ -1,15 +1,23 @@
 ﻿using CinemaTicketBookingApi.Exceptions.booking;
 using CinemaTicketBookingApi.Exceptions.Movies;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
 namespace CinemaTicketBookingApi.Middleware
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -18,47 +26,43 @@ namespace CinemaTicketBookingApi.Middleware
             }
             catch (Exception ex)
             {
-                await HandleException(context, ex);
+                _logger.LogError(ex, "An unhandled exception occurred.");
+                await HandleExceptionAsync(context, ex);
             }
         }
-        private static async Task HandleException(HttpContext context, Exception ex)
+
+        private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            context.Response.ContentType = "application/json";
-            switch (ex)
+            // determine status code based on exception type
+            var status = ex switch
             {
-                case MovieNotFoundException:
-                    context.Response.StatusCode = StatusCodes.Status404NotFound;
-                    break;
-                case BookingNotFoundException:
-                    context.Response.StatusCode = StatusCodes.Status404NotFound;
-                    break;
-                case MovieAlreadyExistsException:
-                    context.Response.StatusCode = StatusCodes.Status409Conflict;
-                    break;
-                case MovieNotAvailableException:
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    break;
-                case InsufficientSeatsException:
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    break;
-                case ArgumentNullException:
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    break;
-                case ArgumentException:
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    break;
-                default:
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    break;
-            }
-            var response = new
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = ex.Message
+                MovieNotFoundException => StatusCodes.Status404NotFound,
+                BookingNotFoundException => StatusCodes.Status404NotFound,
+                MovieAlreadyExistsException => StatusCodes.Status409Conflict,
+                MovieNotAvailableException => StatusCodes.Status400BadRequest,
+                InsufficientSeatsException => StatusCodes.Status400BadRequest,
+                ArgumentNullException => StatusCodes.Status400BadRequest,
+                ArgumentException => StatusCodes.Status400BadRequest,
+                _ => StatusCodes.Status500InternalServerError,
             };
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(response));
+            context.Response.Clear();
+            context.Response.StatusCode = status;
+            context.Response.ContentType = "application/problem+json";
+
+            var problem = new ProblemDetails
+            {
+                Status = status,
+                Title = status == StatusCodes.Status500InternalServerError
+                    ? "Internal Server Error"
+                    : "Request Failed",
+                Detail = ex.Message,
+                Type = $"https://httpstatuses.com/{status}",
+                Instance = context.Request.Path.ToString()
+            };
+
+            var json = JsonSerializer.Serialize(problem);
+            await context.Response.WriteAsync(json);
         }
     }
 }

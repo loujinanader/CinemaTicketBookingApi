@@ -29,7 +29,7 @@ namespace CinemaTicketBookingApi.Controllers
         public IActionResult DeleteMovie(int movieId)
         {
             _movieService.DeleteMovie(movieId);
-            return Ok();
+            return NoContent();
         }
         [HttpPatch("{id}/available-seats")]
         public IActionResult UpdateAvailableSeats(int id, UpdateAvailableSeatsDTO dto)
