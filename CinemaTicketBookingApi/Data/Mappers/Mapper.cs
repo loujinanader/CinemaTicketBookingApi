@@ -14,20 +14,6 @@ namespace CinemaTicketBookingApi.Data.Mappers
                 NumberOfTickets = dto.NumberOfTickets,
             };
         }
-        public BookingDtos MapToBookingDto(Booking booking)
-        {
-            if (booking == null) throw new ArgumentNullException(nameof(booking));
-            return new BookingDtos
-            { 
-                Id = booking.Id,
-                MovieId = booking.MovieId,
-                CustomerName = booking.CustomerName,
-                CustomerEmail = booking.CustomerEmail,
-                BookingDate = booking.BookingDate,
-                NumberOfTickets = booking.NumberOfTickets,
-                MovieName = booking.Movie.Title
-            };
-        }
         public BookingResponseDto MaptoBookingResponse(Booking booking)
         {
             return new BookingResponseDto

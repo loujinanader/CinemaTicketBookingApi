@@ -22,7 +22,7 @@ namespace CinemaTicketBookingApi.Controllers
         public IActionResult DeleteBooking(int id)
         {
             _bookingService.CancelBooking(id);
-            return Ok();
+            return NoContent();
         }
         [HttpGet] //All Booking
         public IActionResult GetAllBookings(int pageNumber = 1, int pageSize = 10)
