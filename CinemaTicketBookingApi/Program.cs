@@ -7,6 +7,7 @@ using CinemaTicketBookingApi.Services.Bookings;
 using CinemaTicketBookingApi.Services.Movies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using CinemaTicketBookingApi.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
@@ -48,6 +49,7 @@ app.UseSwagger();
     });
 }
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
