@@ -7,7 +7,7 @@ namespace CinemaTicketBookingApi.Services.Movies
     {
        public MovieResponseDTO CreateMovie(CreateMovieDTO dTO);
        public void DeleteMovie(int movieId);
-       public Movie GetMovieById(int id);
+       public MovieResponseDTO GetMovieById(int id);
         public MovieResponseDTO UpdateMovie(UpdateMovieDTO dTO);
        public bool MovieTitleExists(string title);
         public PagedResult<MovieResponseDTO> GetAllMovies(MovieFilterParams filter);

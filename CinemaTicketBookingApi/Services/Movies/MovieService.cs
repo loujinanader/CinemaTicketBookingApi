@@ -40,12 +40,13 @@ namespace CinemaTicketBookingApi.Services.Movies
             ValidateMovieBeforeDelete(movieToBeDeleted, movieId);
             _repository.DeleteMovie(movieToBeDeleted);
         }
-        public Movie GetMovieById(int id)
+        public MovieResponseDTO GetMovieById(int id)
         {
             var movie = _repository.GetMovieById(id);
-            if (movie == null)
-            throw new MovieNotFoundException(id);
-            return movie;
+                  if (movie == null)
+                throw new MovieNotFoundException(id);
+            MovieResponseDTO responseDTO = _mapper.MapToMovieResponseDTO(movie);
+            return responseDTO;
         }
         public bool MovieTitleExists(string title)//Duplicate movie titles are not allowed. 
 
