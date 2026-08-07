@@ -18,6 +18,7 @@ namespace CinemaTicketBookingApi.Data.Mappers
         {
             return new BookingResponseDto
             {
+                Id = booking.Id,
                 CustomerEmail = booking.CustomerEmail,
                 CustomerName = booking.CustomerName,
                 BookingDate = booking.BookingDate,

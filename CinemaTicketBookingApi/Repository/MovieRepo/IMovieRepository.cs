@@ -10,5 +10,6 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
         public void DeleteMovie(Movie movie);
         public bool MovieTitleExists(string title);
         public Movie GetMovieByTitle(string title);
+        public bool MovieHasBookings(int movieId);
     }
 }

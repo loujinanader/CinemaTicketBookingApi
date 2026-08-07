@@ -22,22 +22,26 @@ namespace CinemaTicketBookingApi.Services.Bookings
         }
         public BookingResponseDto CreateBooking(CreateBookingDTO booking)
         {
-            Movie movie = ValidateBeforeBooking(booking);  
-           Booking BookingToCreate =_mapper.MapToBooking(booking);
-            BookingToCreate.MovieId = movie.Id;
+            Movie movie = ValidateBeforeBooking(booking);
+
+            Booking bookingToCreate = _mapper.MapToBooking(booking);
+            bookingToCreate.MovieId = movie.Id;
+
             DecreaseAvailableSeats(movie, booking.NumberOfTickets);
             _movieRepository.UpdateMovie(movie);
-            Booking createdBooking = _repository.Add(BookingToCreate);
+
+            Booking createdBooking = _repository.Add(bookingToCreate);
+
             if (createdBooking == null)
                 throw new InvalidOperationException("Failed to create booking.");
-            createdBooking = _repository.GetById(createdBooking.Id);
-            _emailService.SendEmail(
-             booking.CustomerEmail,
-                 "Booking Confirmation",
-                 $"Your booking for '{movie.Title}' has been confirmed."
-);
-            return _mapper.MaptoBookingResponse(createdBooking);
 
+            _emailService.SendEmail(
+                createdBooking.CustomerEmail,
+                "Booking Confirmation",
+                $"Your booking for '{movie.Title}' has been confirmed."
+            );
+
+            return _mapper.MaptoBookingResponse(createdBooking);
         }
 
         public void CancelBooking(int id)

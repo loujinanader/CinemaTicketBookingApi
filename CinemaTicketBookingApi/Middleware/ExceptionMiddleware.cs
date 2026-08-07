@@ -45,6 +45,11 @@ namespace CinemaTicketBookingApi.Middleware
                 ArgumentException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError,
             };
+            if (ex is KeyNotFoundException)
+            {
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                await context.Response.WriteAsync(ex.Message);
+            }
 
             context.Response.Clear();
             context.Response.StatusCode = status;
@@ -64,5 +69,6 @@ namespace CinemaTicketBookingApi.Middleware
             var json = JsonSerializer.Serialize(problem);
             await context.Response.WriteAsync(json);
         }
+
     }
 }

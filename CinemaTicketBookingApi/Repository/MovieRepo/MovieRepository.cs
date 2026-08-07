@@ -60,21 +60,22 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
                 TotalCount = totalCount
             };
         }
-        public Movie GetMovieById(int id) 
+        public Movie GetMovieById(int id)
             => _db.Movies.FirstOrDefault(m => m.Id == id);
         public Movie CreateMovie(Movie movie)
         {
             _db.Movies.Add(movie);
             _db.SaveChanges();
             return movie;
-        } 
+        }
         public Movie UpdateMovie(Movie movie)
         {
             _db.SaveChanges();
             return movie;
         }
 
-        public void DeleteMovie(Movie movie) {
+        public void DeleteMovie(Movie movie)
+        {
             _db.Movies.Remove(movie);
             _db.SaveChanges();
         }
@@ -82,5 +83,8 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
             => _db.Movies.Any(m => m.Title == title);
         public Movie GetMovieByTitle(string title)
              => _db.Movies.FirstOrDefault(m => m.Title == title);
+
+        public bool MovieHasBookings(int movieId)
+               => _db.Bookings.Any(b => b.MovieId == movieId);
     }
 }

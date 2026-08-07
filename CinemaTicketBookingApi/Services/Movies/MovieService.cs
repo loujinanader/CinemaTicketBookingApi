@@ -38,6 +38,9 @@ namespace CinemaTicketBookingApi.Services.Movies
         {
             Movie movieToBeDeleted = _repository.GetMovieById(movieId);
             ValidateMovieBeforeDelete(movieToBeDeleted, movieId);
+            if (movieToBeDeleted == null) throw new KeyNotFoundException($"Movie {movieId} not found.");
+            bool hasBookings = _repository.MovieHasBookings(movieId);
+            if (hasBookings) throw new InvalidOperationException("Movie has existing bookings and cannot be deleted");
             _repository.DeleteMovie(movieToBeDeleted);
         }
         public MovieResponseDTO GetMovieById(int id)
