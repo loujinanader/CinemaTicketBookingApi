@@ -361,5 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-.CinemaTicketBookingApi/appsettings.json
-.CinemaTicketBookingApi/appsettings.Development.json
+**/appsettings.json
+**/appsettings.Development.json
+CinemaTicketBookingApi/appsettings.json
+CinemaTicketBookingApi/appsettings.Development.json
