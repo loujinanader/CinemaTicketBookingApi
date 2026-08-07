@@ -11,50 +11,51 @@ namespace CinemaTicketBookingApi.Repository.MovieRepo
         }
         public PagedResult<Movie> GetAllMovies(MovieFilterParams filter)
         {
-            IQueryable<Movie> query = _db.Movies;
-            // Search
+            var query = _db.Movies.AsQueryable();
+
+            // Search by title
             if (!string.IsNullOrWhiteSpace(filter.Search))
             {
                 query = query.Where(m =>
                     m.Title.Contains(filter.Search));
             }
-            // Filter
+
+            // Filter by genre
             if (!string.IsNullOrWhiteSpace(filter.Genre))
             {
                 query = query.Where(m =>
                     m.Genre == filter.Genre);
             }
+
             // Sorting
             if (!string.IsNullOrWhiteSpace(filter.SortBy))
             {
                 switch (filter.SortBy.ToLower())
                 {
                     case "title":
-
                         query = filter.Descending
                             ? query.OrderByDescending(m => m.Title)
                             : query.OrderBy(m => m.Title);
-
                         break;
 
                     case "releaseyear":
-
                         query = filter.Descending
                             ? query.OrderByDescending(m => m.ReleaseYear)
                             : query.OrderBy(m => m.ReleaseYear);
-
                         break;
                 }
             }
-            int totalCount = query.Count();
 
-            var data = query
+            var totalCount = query.Count();
+
+            var movies = query
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToList();
+
             return new PagedResult<Movie>
             {
-                Data = data,
+                Data = movies,
                 Page = filter.Page,
                 PageSize = filter.PageSize,
                 TotalCount = totalCount

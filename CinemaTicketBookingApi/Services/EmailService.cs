@@ -38,5 +38,6 @@ namespace CinemaTicketBookingApi.Services
             smtp.Disconnect(true);
         }
 
+
     }
 }

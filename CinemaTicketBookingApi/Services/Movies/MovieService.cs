@@ -65,13 +65,12 @@ namespace CinemaTicketBookingApi.Services.Movies
 
             return new PagedResult<MovieResponseDTO>
             {
-                Data = result.Data
-                    .Select(m => _mapper.MapToMovieResponseDTO(m)),
-
+                Data = result.Data.Select(m => _mapper.MapToMovieResponseDTO(m)),
                 Page = result.Page,
                 PageSize = result.PageSize,
                 TotalCount = result.TotalCount
             };
+
         }
         public IEnumerable<MovieResponseV1DTO> GetAllMoviesV1(MovieFilterParams filter)
         {
@@ -95,5 +94,6 @@ namespace CinemaTicketBookingApi.Services.Movies
              _repository.UpdateMovie(movie);
             return _mapper.MapToMovieResponseDTO(movie);
         }
+
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CinemaTicketBookingApi.DTOs.Booking;
+﻿using CinemaTicketBookingApi.DTOs.Booking;
 using CinemaTicketBookingApi.Services.Bookings;
+using Microsoft.AspNetCore.Mvc;
 namespace CinemaTicketBookingApi.Controllers
 {
     [Route("api/[controller]")]
@@ -41,5 +41,6 @@ namespace CinemaTicketBookingApi.Controllers
             }
             return Ok(booking);
         }
+
     }
 }
