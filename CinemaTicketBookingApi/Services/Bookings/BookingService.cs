@@ -35,12 +35,17 @@ namespace CinemaTicketBookingApi.Services.Bookings
             if (createdBooking == null)
                 throw new InvalidOperationException("Failed to create booking.");
 
+            createdBooking = _repository.GetById(createdBooking.Id);
+
             _emailService.SendEmail(
                 createdBooking.CustomerEmail,
                 "Booking Confirmation",
-                $"Your booking for '{movie.Title}' has been confirmed."
+                $"Hello {createdBooking.CustomerName},\n\n" +
+                $"Your booking for '{movie.Title}' has been successfully confirmed.\n" +
+                $"Number of tickets: {createdBooking.NumberOfTickets}\n" +
+                $"Booking date: {createdBooking.BookingDate}\n\n" +
+                $"Thank you for booking with us."
             );
-
             return _mapper.MaptoBookingResponse(createdBooking);
         }
 
@@ -50,11 +55,15 @@ namespace CinemaTicketBookingApi.Services.Bookings
             Movie movie = _movieRepository.GetMovieById(booking.MovieId);
             IncreaseAvailableSeats(movie, booking.NumberOfTickets);
             _movieRepository.UpdateMovie(movie);
+
             _emailService.SendEmail(
-            booking.CustomerEmail,
-               "Booking Cancelled",
-                $"Your booking for '{movie.Title}' has been cancelled."
-);
+                booking.CustomerEmail,
+                "Booking Cancelled",
+                $"Hello {booking.CustomerName},\n\n" +
+                $"Your booking for '{movie.Title}' has been cancelled successfully.\n" +
+                $"Number of tickets: {booking.NumberOfTickets}\n\n" +
+                $"Thank you."
+            );
             _repository.Delete(booking);
         }
         public IEnumerable<BookingResponseDto> GetAllBookings(int pageNumber, int pageSize)
